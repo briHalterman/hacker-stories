@@ -39,12 +39,21 @@ const Search = () => {
     console.log(event.target.value);
   };
 
+  const handleBlur = (event) => {
+    console.log(event);
+  };
+
   return (
     <div>
       <label htmlFor="search">Search: </label>
-      <input id="search" type="text" onChange={handleChange} />
+      <input
+        id="search"
+        type="text"
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
     </div>
-  )
+  );
 };
 
 const List = () => (
