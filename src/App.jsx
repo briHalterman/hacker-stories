@@ -31,12 +31,16 @@ const App = () => (
   </div>
 );
 
-const Search = () => (
-  <div>
-    <label htmlFor="search">Search: </label>
-    <input id="search" type="text" />
-  </div>
-);
+const Search = () => {
+  // perform task
+
+  return (
+    <div>
+      <label htmlFor="search">Search: </label>
+      <input id="search" type="text" />
+    </div>
+  )
+};
 
 const List = () => (
   <ul>
