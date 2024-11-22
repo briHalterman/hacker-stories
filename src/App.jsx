@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 const App = () => {
-  // console.log('App renders');
-
   const stories = [
     {
       title: 'React',
@@ -22,7 +20,7 @@ const App = () => {
     },
   ];
 
-  const [searchTerm, setSearchTerm] = React.useState('');
+  const [searchTerm, setSearchTerm] = React.useState('React');
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -36,7 +34,7 @@ const App = () => {
     <div>
       <h1>My Hacker Stories</h1>
 
-      <Search onSearch={handleSearch} />
+      <Search search={searchTerm} onSearch={handleSearch} />
 
       <hr />
 
@@ -46,17 +44,9 @@ const App = () => {
 };
 
 const Search = (props) => {
-  // console.log('Search renders');
-
-  // const handleChange = (event) => {
-  //   console.log('Search Term (local):', event.target.value);
-
-  //   props.onSearch(event);
+  // const handleBlur = (event) => {
+  //   console.log(event);
   // };
-
-  const handleBlur = (event) => {
-    console.log(event);
-  };
 
   return (
     <div>
@@ -64,8 +54,9 @@ const Search = (props) => {
       <input
         id="search"
         type="text"
+        value={props.search}
         onChange={props.onSearch}
-        onBlur={handleBlur}
+        // onBlur={handleBlur}
       />
       {/* <p>
         Searching for <strong>{searchTerm}</strong>
