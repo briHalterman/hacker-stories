@@ -22,9 +22,15 @@ const App = () => {
     },
   ];
 
+  const [searchTerm, setSearchTerm] = React.useState('');
+
   const handleSearch = (event) => {
-    console.log('Search Term (from callback):', event.target.value);
+    setSearchTerm(event.target.value);
   };
+
+  const searchedStories = stories.filter((story) =>
+    story.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
@@ -34,22 +40,19 @@ const App = () => {
 
       <hr />
 
-      <List list={stories} />
+      <List list={searchedStories} />
     </div>
   );
 };
 
 const Search = (props) => {
-  console.log('Search renders');
+  // console.log('Search renders');
 
-  const [searchTerm, setSearchTerm] = React.useState('');
+  // const handleChange = (event) => {
+  //   console.log('Search Term (local):', event.target.value);
 
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-    console.log('Search Term (local):', event.target.value);
-
-    props.onSearch(event);
-  };
+  //   props.onSearch(event);
+  // };
 
   const handleBlur = (event) => {
     console.log(event);
@@ -61,12 +64,12 @@ const Search = (props) => {
       <input
         id="search"
         type="text"
-        onChange={handleChange}
+        onChange={props.onSearch}
         onBlur={handleBlur}
       />
-      <p>
+      {/* <p>
         Searching for <strong>{searchTerm}</strong>
-      </p>
+      </p> */}
     </div>
   );
 };
