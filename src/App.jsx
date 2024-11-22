@@ -22,8 +22,10 @@ const App = () => {
     },
   ];
 
+  const [searchTerm, setSearchTerm] = React.useState('');
+
   const handleSearch = (event) => {
-    console.log('Search Term (from callback):', event.target.value);
+    setSearchTerm(event.target.value);
   };
 
   return (
@@ -42,10 +44,7 @@ const App = () => {
 const Search = (props) => {
   console.log('Search renders');
 
-  const [searchTerm, setSearchTerm] = React.useState('');
-
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
     console.log('Search Term (local):', event.target.value);
 
     props.onSearch(event);
@@ -61,12 +60,12 @@ const Search = (props) => {
       <input
         id="search"
         type="text"
-        onChange={handleChange}
+        onChange={props.onSearch}
         onBlur={handleBlur}
       />
-      <p>
+      {/* <p>
         Searching for <strong>{searchTerm}</strong>
-      </p>
+      </p> */}
     </div>
   );
 };
