@@ -46,13 +46,13 @@ const App = () => {
 };
 
 const Search = (props) => {
-  console.log('Search renders');
+  // console.log('Search renders');
 
-  const handleChange = (event) => {
-    console.log('Search Term (local):', event.target.value);
+  // const handleChange = (event) => {
+  //   console.log('Search Term (local):', event.target.value);
 
-    props.onSearch(event);
-  };
+  //   props.onSearch(event);
+  // };
 
   const handleBlur = (event) => {
     console.log(event);
