@@ -44,9 +44,7 @@ const App = () => {
 };
 
 const Search = (props) => {
-  // const handleBlur = (event) => {
-  //   console.log(event);
-  // };
+  const { search, onSearch } = props;
 
   return (
     <div>
@@ -54,8 +52,8 @@ const Search = (props) => {
       <input
         id="search"
         type="text"
-        value={props.search}
-        onChange={props.onSearch}
+        value={search}
+        onChange={onSearch}
         // onBlur={handleBlur}
       />
       {/* <p>
