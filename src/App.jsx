@@ -1,17 +1,5 @@
 import * as React from 'react';
 
-const useStorageState = (key, initialState) => {
-  const [value, setValue] = React.useState(
-    localStorage.getItem(key) ?? initialState
-  );
-
-  React.useEffect(() => {
-    localStorage.setItem(key, value);
-  }, [value, key]);
-
-  return [value, setValue];
-};
-
 const App = () => {
   const stories = [
     {
@@ -32,13 +20,19 @@ const App = () => {
     },
   ];
 
-  const [searchTerm, setSearchTerm] = useStorageState(
-    'search',
-    'React'
+  const [searchTerm, setSearchTerm] = React.useState(
+    localStorage.getItem('search') ?? 'React'
   );
+
+  React.useEffect(() => {
+    console.log(searchTerm);
+    localStorage.setItem('search', searchTerm);
+  }, [searchTerm]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+
+    // localStorage.setItem('search', event.target.value);
   };
 
   const searchedStories = stories.filter((story) =>
@@ -58,18 +52,17 @@ const App = () => {
   );
 };
 
-const Search = ({ search, onSearch }) => [
-  <label key="1" htmlFor="search">
-    Search:{' '}
-  </label>,
-  <input
-    key="2"
-    id="search"
-    type="text"
-    value={search}
-    onChange={onSearch}
-  />,
-];
+const Search = ({ search, onSearch }) => (
+  <React.Fragment>
+    <label htmlFor="search">Search: </label>
+    <input
+      id="search"
+      type="text"
+      value={search}
+      onChange={onSearch}
+    />
+  </React.Fragment>
+);
 
 const List = ({ list }) => (
   <ul>
