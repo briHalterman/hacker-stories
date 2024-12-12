@@ -45,8 +45,8 @@ const App = () => {
 
       <InputWithLabel
         id="search"
-        // label="Search"
         value={searchTerm}
+        isFocused
         onInputChange={handleSearch}
       >
         <strong>Search:</strong>
@@ -63,23 +63,41 @@ const App = () => {
 
 const InputWithLabel = ({
   id,
-  // label,
   value,
   type = 'text',
   onInputChange,
+  isFocused,
   children,
-}) => (
-  <>
-    <label htmlFor={id}>{children}</label>
-    &nbsp;
-    <input
-      id={id}
-      type={type}
-      value={value}
-      onChange={onInputChange}
-    />
-  </>
-);
+}) => {
+  // Create a ref with React's useRef Hook
+  const inputRef = React.useRef();
+
+  // Opt into React's lifecycle with React's useEffect Hook
+  React.useEffect(() => {
+    if (isFocused && inputRef.current) {
+      // Execute its focus programmatically as a side-effect, but only if isFocusedis set and the current property is existent
+      inputRef.current.focus();
+    }
+  }, [isFocused]);
+  return (
+    <>
+      <label htmlFor={id}>{children}</label>
+      &nbsp;
+      {/* Pass ref to element's JSX-reserved ref attribute */}
+      <input
+        ref={inputRef}
+        id={id}
+        type={type}
+        value={value}
+        // autoFocus={isFocused}
+        onChange={onInputChange}
+      />
+    </>
+  );
+};
+
+// note that `autoFocus` is a shorthand for `autoFocus={true}`
+// every attribute that is set to `true` can use this shorthand
 
 // const Search = ({ search, onSearch }) => (
 //   <>
