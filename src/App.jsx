@@ -19,12 +19,40 @@ const initialStories = [
   },
 ];
 
-const App = () => {
-  const [searchTerm, setSearchTerm] = React.useState(
-    localStorage.getItem('search') ?? 'React'
+const getAsyncStories = () =>
+  new Promise((resolve) =>
+    setTimeout(
+      () => resolve({ data: { stories: initialStories } }),
+      2000
+    )
   );
 
-  const [stories, setStories] = React.useState(initialStories);
+const useStorageState = (key, initialState) => {
+  const [value, setValue] = React.useState(
+    localStorage.getItem(key) || initialState
+  );
+
+  React.useEffect(() => {
+    localStorage.setItem(key, value);
+  }, [value, key]);
+
+  return [value, setValue];
+}
+
+const App = () => {
+  const [searchTerm, setSearchTerm] = useStorageState(
+    // localStorage.getItem('search') ?? 'React'
+    'search',
+    'React'
+  );
+
+  const [stories, setStories] = React.useState([]);
+
+  React.useEffect(() => {
+    getAsyncStories().then((result) => {
+      setStories(result.data.stories);
+    });
+   }, []);
 
   const handleRemoveStory = (item) => {
     const newStories = stories.filter(
@@ -34,10 +62,10 @@ const App = () => {
     setStories(newStories);
   };
 
-  React.useEffect(() => {
-    console.log(searchTerm);
-    localStorage.setItem('search', searchTerm);
-  }, [searchTerm]);
+  // React.useEffect(() => {
+  //   console.log(searchTerm);
+  //   localStorage.setItem('search', searchTerm);
+  // }, [searchTerm]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -89,6 +117,7 @@ const InputWithLabel = ({
       inputRef.current.focus();
     }
   }, [isFocused]);
+
   return (
     <>
       <label htmlFor={id}>{children}</label>
@@ -134,9 +163,9 @@ const List = ({ list, onRemoveItem }) => (
 );
 
 const Item = ({ item, onRemoveItem }) => {
-  const handleRemoveItem = () => {
-    onRemoveItem(item);
-  };
+  // const handleRemoveItem = () => {
+  //   onRemoveItem(item);
+  // };
 
   return (
     <li>
