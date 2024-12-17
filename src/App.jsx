@@ -37,7 +37,7 @@ const useStorageState = (key, initialState) => {
   }, [value, key]);
 
   return [value, setValue];
-}
+};
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useStorageState(
@@ -47,12 +47,18 @@ const App = () => {
   );
 
   const [stories, setStories] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isError, setIsError] = React.useState(false);
 
   React.useEffect(() => {
+    setIsLoading(true);
+
     getAsyncStories().then((result) => {
       setStories(result.data.stories);
-    });
-   }, []);
+      setIsLoading(false);
+    })
+    .catch(() => setIsError(true));
+  }, []);
 
   const handleRemoveStory = (item) => {
     const newStories = stories.filter(
@@ -77,6 +83,10 @@ const App = () => {
     story.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // if (isLoading) {
+  //   return <p>Loading ...</p>;
+  // }
+
   return (
     <div>
       <h1>My Hacker Stories</h1>
@@ -94,7 +104,16 @@ const App = () => {
 
       <hr />
 
-      <List list={searchedStories} onRemoveItem={handleRemoveStory} />
+      {isError && <p>Something went wrong ...</p>}
+
+      {isLoading ? (
+        <p>Loading ...</p>
+      ) : (
+        <List
+          list={searchedStories}
+          onRemoveItem={handleRemoveStory}
+        />
+      )}
     </div>
   );
 };
@@ -163,10 +182,6 @@ const List = ({ list, onRemoveItem }) => (
 );
 
 const Item = ({ item, onRemoveItem }) => {
-  // const handleRemoveItem = () => {
-  //   onRemoveItem(item);
-  // };
-
   return (
     <li>
       <span>
