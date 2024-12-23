@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+const SET_STORIES = 'SET_STORIES';
+const REMOVE_STORY = 'REMOVE_STORY';
+
 const initialStories = [
   {
     title: 'React',
@@ -29,9 +32,9 @@ const getAsyncStories = () =>
 
 const storiesReducer = (state, action) => {
   switch (action.type) {
-    case 'SET_STORIES':
+    case SET_STORIES:
       return action.payload;
-    case 'REMOVE_STORY':
+    case REMOVE_STORY:
       return state.filter(
         (story) => action.payload.objectID !== story.objectID
       );
@@ -60,7 +63,7 @@ const App = () => {
   );
 
   // const [stories, setStories] = React.useState([]);
-  const [stories, desipatchStories] = React.useReducer(
+  const [stories, dispatchStories] = React.useReducer(
     storiesReducer,
     []
   );
@@ -74,8 +77,8 @@ const App = () => {
     getAsyncStories()
       .then((result) => {
         // setStories(result.data.stories);
-        desipatchStories({
-          type: 'SET_STORIES',
+        dispatchStories({
+          type: SET_STORIES,
           payload: result.data.stories,
         });
         setIsLoading(false);
@@ -89,8 +92,8 @@ const App = () => {
     );
 
     // setStories(newStories);
-    desipatchStories({
-      type: 'REMOVE_STORY',
+    dispatchStories({
+      type: REMOVE_STORY,
       payload: item,
     });
   };
