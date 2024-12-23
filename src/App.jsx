@@ -30,6 +30,10 @@ const getAsyncStories = () =>
 const storiesReducer = (state, action) => {
   if (action.type === 'SET_STORIES') {
     return action.payload;
+  } else if (action.tyoe === 'REMOVE_STORY') {
+    return state.filter(
+      (story) => action.payload.objectID !== story.objectID
+    );
   } else {
     throw new Error();
   }
@@ -85,8 +89,8 @@ const App = () => {
 
     // setStories(newStories);
     desipatchStories({
-      type: 'SET_STORIES',
-      payload: newStories,
+      type: 'REMOVE_STORY',
+      payload: item,
     });
   };
 
