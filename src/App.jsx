@@ -27,6 +27,14 @@ const getAsyncStories = () =>
     )
   );
 
+const storiesReducer = (state, action) => {
+  if (action.type === 'SET_STORIES') {
+    return action.payload;
+  } else {
+    throw new Error();
+  }
+};
+
 const useStorageState = (key, initialState) => {
   const [value, setValue] = React.useState(
     localStorage.getItem(key) || initialState
@@ -46,18 +54,28 @@ const App = () => {
     'React'
   );
 
-  const [stories, setStories] = React.useState([]);
+  // const [stories, setStories] = React.useState([]);
+  const [stories, desipatchStories] = React.useReducer(
+    storiesReducer,
+    []
+  );
+
   const [isLoading, setIsLoading] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
 
   React.useEffect(() => {
     setIsLoading(true);
 
-    getAsyncStories().then((result) => {
-      setStories(result.data.stories);
-      setIsLoading(false);
-    })
-    .catch(() => setIsError(true));
+    getAsyncStories()
+      .then((result) => {
+        // setStories(result.data.stories);
+        desipatchStories({
+          type: 'SET_STORIES',
+          payload: result.data.stories,
+        });
+        setIsLoading(false);
+      })
+      .catch(() => setIsError(true));
   }, []);
 
   const handleRemoveStory = (item) => {
@@ -65,7 +83,11 @@ const App = () => {
       (story) => item.objectID !== story.objectID
     );
 
-    setStories(newStories);
+    // setStories(newStories);
+    desipatchStories({
+      type: 'SET_STORIES',
+      payload: newStories,
+    });
   };
 
   // React.useEffect(() => {
