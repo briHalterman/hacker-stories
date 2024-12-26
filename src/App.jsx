@@ -2,6 +2,9 @@ import * as React from 'react';
 
 // const SET_STORIES = 'SET_STORIES';
 const REMOVE_STORY = 'REMOVE_STORY';
+const STORIES_FETCH_INIT = 'STORIES_FETCH_INIT';
+const STORIES_FETCH_SUCCESS = 'STORIES_FETCH_SUCCESS';
+const STORIES_FETCH_FAILURE = 'STORIES_FETCH_FAILURE';
 
 const initialStories = [
   {
@@ -32,20 +35,20 @@ const getAsyncStories = () =>
 
 const storiesReducer = (state, action) => {
   switch (action.type) {
-    case 'STORIES_FETCH_INIT':
+    case STORIES_FETCH_INIT:
       return {
         ...state,
         isLoading: true,
         isError: false,
       };
-    case 'STORIES_FETCH_SUCCESS':
+    case STORIES_FETCH_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isError: false,
         data: action.payload,
       };
-    case 'STORIES_FETCH_FAILURE':
+    case STORIES_FETCH_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -95,20 +98,18 @@ const App = () => {
 
   React.useEffect(() => {
     // setIsLoading(true);
-    dispatchStories({ type: 'STORIES_FETCH_INIT' });
+    dispatchStories({ type: STORIES_FETCH_INIT });
 
     getAsyncStories()
       .then((result) => {
         dispatchStories({
-          type: 'STORIES_FETCH_SUCCESS',
+          type: STORIES_FETCH_SUCCESS,
           payload: result.data.stories,
         });
         // setIsLoading(false);
       })
       // .catch(() => setIsError(true));
-      .catch(() =>
-        dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
-      );
+      .catch(() => dispatchStories({ type: STORIES_FETCH_FAILURE }));
   }, []);
 
   const handleRemoveStory = (item) => {
