@@ -5,25 +5,6 @@ const STORIES_FETCH_INIT = 'STORIES_FETCH_INIT';
 const STORIES_FETCH_SUCCESS = 'STORIES_FETCH_SUCCESS';
 const STORIES_FETCH_FAILURE = 'STORIES_FETCH_FAILURE';
 
-// const initialStories = [
-//   {
-//     title: 'React',
-//     url: 'https://reactjs.org/',
-//     author: 'Jordan Walke',
-//     num_comments: 3,
-//     points: 4,
-//     objectID: 0,
-//   },
-//   {
-//     title: 'Redux',
-//     url: 'https://redux.js.org/',
-//     author: 'Dan Abramov, Andrew Clark',
-//     num_comments: 2,
-//     points: 5,
-//     objectID: 1,
-//   },
-// ];
-
 const storiesReducer = (state, action) => {
   switch (action.type) {
     case STORIES_FETCH_INIT:
@@ -57,14 +38,6 @@ const storiesReducer = (state, action) => {
   }
 };
 
-// const getAsyncStories = () =>
-//   new Promise((resolve) =>
-//     setTimeout(
-//       () => resolve({ data: { stories: initialStories } }),
-//       2000
-//     )
-//   );
-
 const useStorageState = (key, initialState) => {
   const [value, setValue] = React.useState(
     localStorage.getItem(key) || initialState
@@ -91,7 +64,9 @@ const App = () => {
     { data: [], isLoading: false, isError: false }
   );
 
-  React.useEffect(() => {
+  // Move all data fetching logic from the side-effect into arrow function expression
+  const handleFetchStories = React.useCallback(() => {
+    // wrap function into React's useCallback hook
     //  if `searchTerm is not present
     // e.g. null, epmty string, undefined
     // do nothing
@@ -112,7 +87,11 @@ const App = () => {
       .catch(() =>
         dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
       );
-  }, [searchTerm]);
+  }, [searchTerm]); // React's useCallback Hook creates a memoized function every time this dependency array changes
+
+  React.useEffect(() => {
+    handleFetchStories(); // Invoke handleFetchStories function in useEffect Hook
+  }, [handleFetchStories]);
 
   const handleRemoveStory = (item) => {
     dispatchStories({
