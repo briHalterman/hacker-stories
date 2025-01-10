@@ -92,19 +92,16 @@ const App = () => {
   );
 
   React.useEffect(() => {
+    //  if `searchTerm is not present
+    // e.g. null, epmty string, undefined
+    // do nothing
+    // more generalized condition than searchTerm === ''
+
+    if (searchTerm === '') return;
+
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
-    //   getAsyncStories()
-    //     .then((result) => {
-    //       dispatchStories({
-    //         type: STORIES_FETCH_SUCCESS,
-    //         payload: result.data.stories,
-    //       });
-    //     })
-    //     .catch(() => dispatchStories({ type: STORIES_FETCH_FAILURE }));
-    // }, []);
-
-    fetch(`${API_ENDPOINT}react`) // Use native browser's fetch API to make request
+    fetch(`${API_ENDPOINT}${searchTerm}`) // Use native browser's fetch API to make request
       .then((response) => response.json()) // Translate response to JSON
       .then((result) => {
         dispatchStories({
@@ -115,7 +112,7 @@ const App = () => {
       .catch(() =>
         dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
       );
-  }, []);
+  }, [searchTerm]);
 
   const handleRemoveStory = (item) => {
     dispatchStories({
@@ -152,10 +149,7 @@ const App = () => {
       {stories.isLoading ? (
         <p>Loading ...</p>
       ) : (
-        <List
-          list={searchedStories}
-          onRemoveItem={handleRemoveStory}
-        />
+        <List list={stories.data} onRemoveItem={handleRemoveStory} />
       )}
     </div>
   );
