@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 
 const REMOVE_STORY = 'REMOVE_STORY';
 const STORIES_FETCH_INIT = 'STORIES_FETCH_INIT';
@@ -76,24 +77,21 @@ const App = () => {
     // do nothing
     // more generalized condition than searchTerm === ''
 
-    // if (searchTerm === '') return;
-
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
-    // fetch(`${API_ENDPOINT}${searchTerm}`) // Use native browser's fetch API to make request
-    fetch(url)
-      .then((response) => response.json()) // Translate response to JSON
+    axios
+      .get(url)
       .then((result) => {
         dispatchStories({
           type: 'STORIES_FETCH_SUCCESS',
-          payload: result.hits, // Send returned result (different data structure) as payload to component's state reducer
+          payload: result.data.hits, // Send returned result (different data structure) as payload to component's state reducer
         });
       })
       .catch(() =>
         dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
       );
-    // }, [searchTerm]); // React's useCallback Hook creates a memoized function every time this dependency array changes
   }, [url]);
+
   React.useEffect(() => {
     handleFetchStories(); // Invoke handleFetchStories function in useEffect Hook
   }, [handleFetchStories]);
