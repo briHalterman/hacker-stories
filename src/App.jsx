@@ -72,10 +72,7 @@ const App = () => {
   // Move all data fetching logic from the side-effect into arrow function expression
   const handleFetchStories = React.useCallback(async () => {
     // wrap function into React's useCallback hook
-    //  if `searchTerm is not present
-    // e.g. null, empty string, undefined
-    // do nothing
-    // more generalized condition than searchTerm === ''
+    //  if `searchTerm is not present do nothing
 
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
@@ -112,28 +109,9 @@ const App = () => {
     event.preventDefault();
   };
 
-  // const searchedStories = stories.data.filter((story) =>
-  //   story.title.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
   return (
     <div>
       <h1>My Hacker Stories</h1>
-
-      {/* <form onSubmit={handleSearchSubmit}>
-        <InputWithLabel
-          id="search"
-          value={searchTerm}
-          isFocused
-          onInputChange={handleSearchInput}
-        >
-          <strong>Search:</strong>
-        </InputWithLabel>
-
-        <button type="submit" disabled={!searchTerm}>
-          Submit
-        </button>
-      </form> */}
 
       <SearchForm
         searchTerm={searchTerm}
