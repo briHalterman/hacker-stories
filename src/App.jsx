@@ -70,26 +70,25 @@ const App = () => {
   );
 
   // Move all data fetching logic from the side-effect into arrow function expression
-  const handleFetchStories = React.useCallback(() => {
+  const handleFetchStories = React.useCallback(async () => {
     // wrap function into React's useCallback hook
     //  if `searchTerm is not present
-    // e.g. null, epmty string, undefined
+    // e.g. null, empty string, undefined
     // do nothing
     // more generalized condition than searchTerm === ''
 
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
-    axios
-      .get(url)
-      .then((result) => {
-        dispatchStories({
-          type: 'STORIES_FETCH_SUCCESS',
-          payload: result.data.hits, // Send returned result (different data structure) as payload to component's state reducer
-        });
-      })
-      .catch(() =>
-        dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
-      );
+    try {
+      const result = await axios.get(url);
+
+      dispatchStories({
+        type: 'STORIES_FETCH_SUCCESS',
+        payload: result.data.hits, // Send returned result (different data structure) as payload to component's state reducer
+      });
+    } catch {
+      dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
+    }
   }, [url]);
 
   React.useEffect(() => {
