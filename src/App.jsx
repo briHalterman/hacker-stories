@@ -1,6 +1,8 @@
 import * as React from 'react';
 import axios from 'axios';
 
+import './App.css';
+
 const REMOVE_STORY = 'REMOVE_STORY';
 const STORIES_FETCH_INIT = 'STORIES_FETCH_INIT';
 const STORIES_FETCH_SUCCESS = 'STORIES_FETCH_SUCCESS';
@@ -110,8 +112,8 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>My Hacker Stories</h1>
+    <div className="container">
+      <h1 className="headline-primary">My Hacker Stories</h1>
 
       <SearchForm
         searchTerm={searchTerm}
@@ -119,7 +121,7 @@ const App = () => {
         onSearchSubmit={handleSearchSubmit}
       />
 
-      <hr />
+      {/* <hr /> */}
 
       {stories.isError && <p>Something went wrong ...</p>}
 
