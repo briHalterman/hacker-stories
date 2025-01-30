@@ -7,6 +7,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 // import { ReactComponent as Check } from './check.svg';
 
 import CheckIcon from './check.svg?react';
+import HackerIcon from './hacker.svg?react';
 
 const REMOVE_STORY = 'REMOVE_STORY';
 const STORIES_FETCH_INIT = 'STORIES_FETCH_INIT';
@@ -210,6 +211,7 @@ const App = () => {
 
       <StyledContainer>
         <StyledHeadlinePrimary>
+          <HackerIcon height="50" width="50"/>
           My Hacker Stories
         </StyledHeadlinePrimary>
 
