@@ -1,8 +1,12 @@
-import clsx from 'clsx';
+// import clsx from 'clsx';
 import * as React from 'react';
 import axios from 'axios';
 import styled, { createGlobalStyle } from 'styled-components';
-import styles from './App.module.css';
+// import styles from './App.module.css';
+
+// import { ReactComponent as Check } from './check.svg';
+
+import CheckIcon from './check.svg?react';
 
 const REMOVE_STORY = 'REMOVE_STORY';
 const STORIES_FETCH_INIT = 'STORIES_FETCH_INIT';
@@ -203,7 +207,7 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      
+
       <StyledContainer>
         <StyledHeadlinePrimary>
           My Hacker Stories
@@ -326,9 +330,9 @@ const Item = ({ item, onRemoveItem }) => (
       <StyledButtonSmall
         type="button"
         onClick={() => onRemoveItem(item)}
-        className={`${styles.button} ${styles.buttonSmall}`}
+        // className={`${styles.button} ${styles.buttonSmall}`}
       >
-        Dismiss
+        <CheckIcon height="18px" width="18px" />
       </StyledButtonSmall>
     </StyledColumn>
   </StyledItem>
