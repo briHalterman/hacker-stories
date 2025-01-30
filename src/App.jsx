@@ -119,6 +119,7 @@ const App = () => {
         searchTerm={searchTerm}
         onSearchInput={handleSearchInput}
         onSearchSubmit={handleSearchSubmit}
+        className="button_large"
       />
 
       {/* <hr /> */}
@@ -138,6 +139,7 @@ const SearchForm = ({
   searchTerm,
   onSearchInput,
   onSearchSubmit,
+  className
 }) => (
   <form onSubmit={onSearchSubmit} className="search-form">
     <InputWithLabel
