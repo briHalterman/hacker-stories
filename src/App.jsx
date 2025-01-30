@@ -180,7 +180,9 @@ const InputWithLabel = ({
 
   return (
     <>
-      <label htmlFor={id}>{children}</label>
+      <label htmlFor={id} className="label">
+        {children}
+      </label>
       &nbsp;
       {/* Pass ref to element's JSX-reserved ref attribute */}
       <input
@@ -190,6 +192,7 @@ const InputWithLabel = ({
         value={value}
         // autoFocus={isFocused}
         onChange={onInputChange}
+        className="input"
       />
     </>
   );
