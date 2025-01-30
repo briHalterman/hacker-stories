@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import * as React from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import styles from './App.module.css';
 
 const REMOVE_STORY = 'REMOVE_STORY';
@@ -56,6 +56,15 @@ const useStorageState = (key, initialState) => {
 
 // API_ENDPOINT used to fetch popular tech stories for a certain query
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubantu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+`;
 
 const StyledContainer = styled.div`
   height: 100vw;
@@ -192,26 +201,35 @@ const App = () => {
   };
 
   return (
-    <StyledContainer>
-      <StyledHeadlinePrimary>My Hacker Stories</StyledHeadlinePrimary>
+    <>
+      <GlobalStyle />
+      
+      <StyledContainer>
+        <StyledHeadlinePrimary>
+          My Hacker Stories
+        </StyledHeadlinePrimary>
 
-      <SearchForm
-        searchTerm={searchTerm}
-        onSearchInput={handleSearchInput}
-        onSearchSubmit={handleSearchSubmit}
-        // className="button_large"
-      />
+        <SearchForm
+          searchTerm={searchTerm}
+          onSearchInput={handleSearchInput}
+          onSearchSubmit={handleSearchSubmit}
+          // className="button_large"
+        />
 
-      {/* <hr /> */}
+        {/* <hr /> */}
 
-      {stories.isError && <p>Something went wrong ...</p>}
+        {stories.isError && <p>Something went wrong ...</p>}
 
-      {stories.isLoading ? (
-        <p>Loading ...</p>
-      ) : (
-        <List list={stories.data} onRemoveItem={handleRemoveStory} />
-      )}
-    </StyledContainer>
+        {stories.isLoading ? (
+          <p>Loading ...</p>
+        ) : (
+          <List
+            list={stories.data}
+            onRemoveItem={handleRemoveStory}
+          />
+        )}
+      </StyledContainer>
+    </>
   );
 };
 
