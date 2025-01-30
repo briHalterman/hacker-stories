@@ -1,8 +1,16 @@
-import clsx from 'clsx';
+// import clsx from 'clsx';
 import * as React from 'react';
 import axios from 'axios';
 import styled, { createGlobalStyle } from 'styled-components';
-import styles from './App.module.css';
+// import styles from './App.module.css';
+
+// import { ReactComponent as Check } from './check.svg';
+
+// import CheckIcon from './check.svg?react';
+// import HackerIcon from './hacker.svg?react';
+
+import { FaHackerNews } from "react-icons/fa";
+import { AiOutlineCheck } from "react-icons/ai";
 
 const REMOVE_STORY = 'REMOVE_STORY';
 const STORIES_FETCH_INIT = 'STORIES_FETCH_INIT';
@@ -203,9 +211,10 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      
+
       <StyledContainer>
         <StyledHeadlinePrimary>
+          <FaHackerNews size="50" />
           My Hacker Stories
         </StyledHeadlinePrimary>
 
@@ -326,9 +335,9 @@ const Item = ({ item, onRemoveItem }) => (
       <StyledButtonSmall
         type="button"
         onClick={() => onRemoveItem(item)}
-        className={`${styles.button} ${styles.buttonSmall}`}
+        // className={`${styles.button} ${styles.buttonSmall}`}
       >
-        Dismiss
+        <AiOutlineCheck height="18px" width="18px" color="green" />
       </StyledButtonSmall>
     </StyledColumn>
   </StyledItem>
