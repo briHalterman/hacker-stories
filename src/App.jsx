@@ -9,8 +9,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 // import CheckIcon from './check.svg?react';
 // import HackerIcon from './hacker.svg?react';
 
-import { FaHackerNews } from "react-icons/fa";
-import { AiOutlineCheck } from "react-icons/ai";
+import { FaHackerNews } from 'react-icons/fa';
+import { AiOutlineCheck } from 'react-icons/ai';
 
 const REMOVE_STORY = 'REMOVE_STORY';
 const STORIES_FETCH_INIT = 'STORIES_FETCH_INIT';
@@ -51,12 +51,19 @@ const storiesReducer = (state, action) => {
 };
 
 const useStorageState = (key, initialState) => {
+  const isMounted = React.useRef(false);
+
   const [value, setValue] = React.useState(
     localStorage.getItem(key) || initialState
   );
 
   React.useEffect(() => {
-    localStorage.setItem(key, value);
+    if (!isMounted.current) {
+      isMounted.current = true;
+    } else {
+      console.log('A');
+      localStorage.setItem(key, value)
+    }
   }, [value, key]);
 
   return [value, setValue];
