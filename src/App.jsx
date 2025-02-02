@@ -188,6 +188,7 @@ const App = () => {
   }, [url]);
 
   React.useEffect(() => {
+    console.log('How many times do I log?');
     handleFetchStories(); // Invoke handleFetchStories function in useEffect Hook
   }, [handleFetchStories]);
 
