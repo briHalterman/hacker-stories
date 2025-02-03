@@ -215,15 +215,15 @@ const App = () => {
     });
   }, []);
 
-  const handleSearchInput = (event) => {
+  const handleSearchInput = React.useCallback((event) => {
     setSearchTerm(event.target.value);
-  };
+  }, []);
 
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = React.useCallback(() => {
     setUrl(`${API_ENDPOINT}${searchTerm}`);
 
     event.preventDefault();
-  };
+  }, []);
 
   const sumComments = React.useMemo(
     () => getSumComments(stories),
@@ -264,33 +264,34 @@ const App = () => {
   );
 };
 
-const SearchForm = ({
-  searchTerm,
-  onSearchInput,
-  onSearchSubmit,
-  className,
-}) => (
-  <StyledSearchForm onSubmit={onSearchSubmit}>
-    <InputWithLabel
-      id="search"
-      value={searchTerm}
-      isFocused
-      onInputChange={onSearchInput}
-    >
-      <strong>Search:</strong>
-    </InputWithLabel>
+const SearchForm = React.memo(
+  ({ searchTerm, onSearchInput, onSearchSubmit, className }) => {
+    console.log('D');
 
-    <StyledButtonLarge
-      type="submit"
-      disabled={!searchTerm}
-      // className={clsx(styles.button, styles.buttonLarge)}
-      // className={clsx(styles.button, {
-      //   [styles.buttonLarge]: isLarge,
-      // })}
-    >
-      Submit
-    </StyledButtonLarge>
-  </StyledSearchForm>
+    return (
+      <StyledSearchForm onSubmit={onSearchSubmit}>
+        <InputWithLabel
+          id="search"
+          value={searchTerm}
+          isFocused
+          onInputChange={onSearchInput}
+        >
+          <strong>Search:</strong>
+        </InputWithLabel>
+
+        <StyledButtonLarge
+          type="submit"
+          disabled={!searchTerm}
+          // className={clsx(styles.button, styles.buttonLarge)}
+          // className={clsx(styles.button, {
+          //   [styles.buttonLarge]: isLarge,
+          // })}
+        >
+          Submit
+        </StyledButtonLarge>
+      </StyledSearchForm>
+    );
+  }
 );
 
 const InputWithLabel = ({
