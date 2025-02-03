@@ -160,6 +160,15 @@ const StyledInput = styled.input`
   font-size: 24px;
 `;
 
+const getSumComments = (stories) => {
+  console.log('C');
+
+  return stories.data.reduce(
+    (result, value) => result + value.num_comments,
+    0
+  );
+};
+
 const App = () => {
   const [searchTerm, setSearchTerm] = useStorageState(
     'search',
@@ -216,6 +225,11 @@ const App = () => {
     event.preventDefault();
   };
 
+  const sumComments = React.useMemo(
+    () => getSumComments(stories),
+    [stories]
+  );
+
   return (
     <>
       <GlobalStyle />
@@ -223,7 +237,7 @@ const App = () => {
       <StyledContainer>
         <StyledHeadlinePrimary>
           <FaHackerNews size="50" />
-          My Hacker Stories
+          My Hacker Stories {sumComments} comments.
         </StyledHeadlinePrimary>
 
         <SearchForm
