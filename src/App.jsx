@@ -9,8 +9,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 // import CheckIcon from './check.svg?react';
 // import HackerIcon from './hacker.svg?react';
 
-import { FaHackerNews } from "react-icons/fa";
-import { AiOutlineCheck } from "react-icons/ai";
+import { FaHackerNews } from 'react-icons/fa';
+import { AiOutlineCheck } from 'react-icons/ai';
 
 const REMOVE_STORY = 'REMOVE_STORY';
 const STORIES_FETCH_INIT = 'STORIES_FETCH_INIT';
@@ -51,12 +51,19 @@ const storiesReducer = (state, action) => {
 };
 
 const useStorageState = (key, initialState) => {
+  const isMounted = React.useRef(false);
+
   const [value, setValue] = React.useState(
     localStorage.getItem(key) || initialState
   );
 
   React.useEffect(() => {
-    localStorage.setItem(key, value);
+    if (!isMounted.current) {
+      isMounted.current = true;
+    } else {
+      console.log('A');
+      localStorage.setItem(key, value);
+    }
   }, [value, key]);
 
   return [value, setValue];
@@ -153,6 +160,15 @@ const StyledInput = styled.input`
   font-size: 24px;
 `;
 
+const getSumComments = (stories) => {
+  console.log('C');
+
+  return stories.data.reduce(
+    (result, value) => result + value.num_comments,
+    0
+  );
+};
+
 const App = () => {
   const [searchTerm, setSearchTerm] = useStorageState(
     'search',
@@ -188,25 +204,31 @@ const App = () => {
   }, [url]);
 
   React.useEffect(() => {
+    // console.log('How many times do I log?');
     handleFetchStories(); // Invoke handleFetchStories function in useEffect Hook
   }, [handleFetchStories]);
 
-  const handleRemoveStory = (item) => {
+  const handleRemoveStory = React.useCallback((item) => {
     dispatchStories({
       type: REMOVE_STORY,
       payload: item,
     });
-  };
+  }, []);
 
-  const handleSearchInput = (event) => {
+  const handleSearchInput = React.useCallback((event) => {
     setSearchTerm(event.target.value);
-  };
+  }, []);
 
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = React.useCallback(() => {
     setUrl(`${API_ENDPOINT}${searchTerm}`);
 
     event.preventDefault();
-  };
+  }, []);
+
+  const sumComments = React.useMemo(
+    () => getSumComments(stories),
+    [stories]
+  );
 
   return (
     <>
@@ -215,7 +237,7 @@ const App = () => {
       <StyledContainer>
         <StyledHeadlinePrimary>
           <FaHackerNews size="50" />
-          My Hacker Stories
+          My Hacker Stories {sumComments} comments.
         </StyledHeadlinePrimary>
 
         <SearchForm
@@ -242,33 +264,34 @@ const App = () => {
   );
 };
 
-const SearchForm = ({
-  searchTerm,
-  onSearchInput,
-  onSearchSubmit,
-  className,
-}) => (
-  <StyledSearchForm onSubmit={onSearchSubmit}>
-    <InputWithLabel
-      id="search"
-      value={searchTerm}
-      isFocused
-      onInputChange={onSearchInput}
-    >
-      <strong>Search:</strong>
-    </InputWithLabel>
+const SearchForm = React.memo(
+  ({ searchTerm, onSearchInput, onSearchSubmit, className }) => {
+    console.log('D');
 
-    <StyledButtonLarge
-      type="submit"
-      disabled={!searchTerm}
-      // className={clsx(styles.button, styles.buttonLarge)}
-      // className={clsx(styles.button, {
-      //   [styles.buttonLarge]: isLarge,
-      // })}
-    >
-      Submit
-    </StyledButtonLarge>
-  </StyledSearchForm>
+    return (
+      <StyledSearchForm onSubmit={onSearchSubmit}>
+        <InputWithLabel
+          id="search"
+          value={searchTerm}
+          isFocused
+          onInputChange={onSearchInput}
+        >
+          <strong>Search:</strong>
+        </InputWithLabel>
+
+        <StyledButtonLarge
+          type="submit"
+          disabled={!searchTerm}
+          // className={clsx(styles.button, styles.buttonLarge)}
+          // className={clsx(styles.button, {
+          //   [styles.buttonLarge]: isLarge,
+          // })}
+        >
+          Submit
+        </StyledButtonLarge>
+      </StyledSearchForm>
+    );
+  }
 );
 
 const InputWithLabel = ({
@@ -289,6 +312,8 @@ const InputWithLabel = ({
       inputRef.current.focus();
     }
   }, [isFocused]);
+
+  console.log('B:App');
 
   return (
     <>
@@ -311,36 +336,43 @@ const InputWithLabel = ({
 // note that `autoFocus` is a shorthand for `autoFocus={true}`
 // every attribute that is set to `true` can use this shorthand
 
-const List = ({ list, onRemoveItem }) => (
-  <ul>
-    {list.map((item) => (
-      <Item
-        key={item.objectID}
-        item={item}
-        onRemoveItem={onRemoveItem}
-      />
-    ))}
-  </ul>
+const List = React.memo(
+  ({ list, onRemoveItem }) =>
+    console.log('B:List') || (
+      <ul>
+        {list.map((item) => (
+          <Item
+            key={item.objectID}
+            item={item}
+            onRemoveItem={onRemoveItem}
+          />
+        ))}
+      </ul>
+    )
 );
 
-const Item = ({ item, onRemoveItem }) => (
-  <StyledItem>
-    <StyledColumn width="40%">
-      <a href={item.url}>{item.title}</a>
-    </StyledColumn>
-    <StyledColumn width="30%">{item.author}</StyledColumn>
-    <StyledColumn width="10%">{item.num_comments}</StyledColumn>
-    <StyledColumn width="10%">{item.points}</StyledColumn>
-    <StyledColumn width="10%">
-      <StyledButtonSmall
-        type="button"
-        onClick={() => onRemoveItem(item)}
-        // className={`${styles.button} ${styles.buttonSmall}`}
-      >
-        <AiOutlineCheck height="18px" width="18px" color="green" />
-      </StyledButtonSmall>
-    </StyledColumn>
-  </StyledItem>
-);
+const Item = React.memo(({ item, onRemoveItem }) => {
+  console.log('E');
+
+  return (
+    <StyledItem>
+      <StyledColumn width="40%">
+        <a href={item.url}>{item.title}</a>
+      </StyledColumn>
+      <StyledColumn width="30%">{item.author}</StyledColumn>
+      <StyledColumn width="10%">{item.num_comments}</StyledColumn>
+      <StyledColumn width="10%">{item.points}</StyledColumn>
+      <StyledColumn width="10%">
+        <StyledButtonSmall
+          type="button"
+          onClick={() => onRemoveItem(item)}
+          // className={`${styles.button} ${styles.buttonSmall}`}
+        >
+          <AiOutlineCheck height="18px" width="18px" color="green" />
+        </StyledButtonSmall>
+      </StyledColumn>
+    </StyledItem>
+  );
+});
 
 export default App;
