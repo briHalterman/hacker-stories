@@ -4,20 +4,59 @@ import axios from 'axios';
 import styled, { createGlobalStyle } from 'styled-components';
 // import styles from './App.module.css';
 
-// import { ReactComponent as Check } from './check.svg';
+import { FaHackerNews } from 'react-icons/fa';
+import { AiOutlineCheck } from 'react-icons/ai';
 
-// import CheckIcon from './check.svg?react';
-// import HackerIcon from './hacker.svg?react';
+type Story = {
+  objectID: string;
+  url: string;
+  title: string;
+  author: string;
+  num_comments: number;
+  points: number;
+};
 
-import { FaHackerNews } from "react-icons/fa";
-import { AiOutlineCheck } from "react-icons/ai";
+type Stories = Story[];
+
+type StoriesState = {
+  data: Stories;
+  isLoading: boolean;
+  isError: boolean;
+};
+
+type StoriesFetchInitAction = {
+  type: 'STORIES_FETCH_INIT';
+};
+
+type StoriesFetchSuccessAction = {
+  type: 'STORIES_FETCH_SUCCESS';
+  payload: Stories;
+};
+
+type StoriesFetchFailureAction = {
+  type: 'STORIES_FETCH_FAILURE';
+};
+
+type StoriesRemoveAction = {
+  type: 'REMOVE_STORY';
+  payload: Story;
+};
+
+type StoriesAction =
+  | StoriesFetchInitAction
+  | StoriesFetchSuccessAction
+  | StoriesFetchFailureAction
+  | StoriesRemoveAction;
 
 const REMOVE_STORY = 'REMOVE_STORY';
 const STORIES_FETCH_INIT = 'STORIES_FETCH_INIT';
 const STORIES_FETCH_SUCCESS = 'STORIES_FETCH_SUCCESS';
 const STORIES_FETCH_FAILURE = 'STORIES_FETCH_FAILURE';
 
-const storiesReducer = (state, action) => {
+const storiesReducer = (
+  state: StoriesState,
+  action: StoriesAction
+) => {
   switch (action.type) {
     case STORIES_FETCH_INIT:
       return {
@@ -50,7 +89,10 @@ const storiesReducer = (state, action) => {
   }
 };
 
-const useStorageState = (key, initialState) => {
+const useStorageState = (
+  key: string,
+  initialState: string
+): [string, (newValue: string) => void] => {
   const [value, setValue] = React.useState(
     localStorage.getItem(key) || initialState
   );
@@ -191,18 +233,22 @@ const App = () => {
     handleFetchStories(); // Invoke handleFetchStories function in useEffect Hook
   }, [handleFetchStories]);
 
-  const handleRemoveStory = (item) => {
+  const handleRemoveStory = (item: Story) => {
     dispatchStories({
       type: REMOVE_STORY,
       payload: item,
     });
   };
 
-  const handleSearchInput = (event) => {
+  const handleSearchInput = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     setUrl(`${API_ENDPOINT}${searchTerm}`);
 
     event.preventDefault();
@@ -242,11 +288,17 @@ const App = () => {
   );
 };
 
-const SearchForm = ({
+type SearchFormProps = {
+  searchTerm: string;
+  onSearchInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+};
+
+const SearchForm: React.FC<SearchFormProps> = ({
   searchTerm,
   onSearchInput,
   onSearchSubmit,
-  className,
+  // className,
 }) => (
   <StyledSearchForm onSubmit={onSearchSubmit}>
     <InputWithLabel
@@ -271,7 +323,16 @@ const SearchForm = ({
   </StyledSearchForm>
 );
 
-const InputWithLabel = ({
+type InputWithLabelProps = {
+  id: string;
+  value: string;
+  type?: string;
+  onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isFocused?: boolean;
+  children: React.ReactNode;
+};
+
+const InputWithLabel: React.FC<InputWithLabelProps> = ({
   id,
   value,
   type = 'text',
@@ -280,7 +341,7 @@ const InputWithLabel = ({
   children,
 }) => {
   // Create a ref with React's useRef Hook
-  const inputRef = React.useRef();
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   // Opt into React's lifecycle with React's useEffect Hook
   React.useEffect(() => {
@@ -311,7 +372,12 @@ const InputWithLabel = ({
 // note that `autoFocus` is a shorthand for `autoFocus={true}`
 // every attribute that is set to `true` can use this shorthand
 
-const List = ({ list, onRemoveItem }) => (
+type ListProps = {
+  list: Stories;
+  onRemoveItem: (item: Story) => void;
+};
+
+const List: React.FC<ListProps> = ({ list, onRemoveItem }) => (
   <ul>
     {list.map((item) => (
       <Item
@@ -323,7 +389,13 @@ const List = ({ list, onRemoveItem }) => (
   </ul>
 );
 
-const Item = ({ item, onRemoveItem }) => (
+type ItemProps = {
+  item: Story;
+  onRemoveItem: (item: Story) => void;
+};
+
+// const Item = ({ item, onRemoveItem }: ItemProps) => (
+const Item: React.FC<ItemProps> = ({ item, onRemoveItem }) => (
   <StyledItem>
     <StyledColumn width="40%">
       <a href={item.url}>{item.title}</a>
