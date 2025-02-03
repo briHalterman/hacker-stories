@@ -62,7 +62,7 @@ const useStorageState = (key, initialState) => {
       isMounted.current = true;
     } else {
       console.log('A');
-      localStorage.setItem(key, value)
+      localStorage.setItem(key, value);
     }
   }, [value, key]);
 
@@ -195,16 +195,16 @@ const App = () => {
   }, [url]);
 
   React.useEffect(() => {
-    console.log('How many times do I log?');
+    // console.log('How many times do I log?');
     handleFetchStories(); // Invoke handleFetchStories function in useEffect Hook
   }, [handleFetchStories]);
 
-  const handleRemoveStory = (item) => {
+  const handleRemoveStory = React.useCallback((item) => {
     dispatchStories({
       type: REMOVE_STORY,
       payload: item,
     });
-  };
+  }, []);
 
   const handleSearchInput = (event) => {
     setSearchTerm(event.target.value);
@@ -298,6 +298,8 @@ const InputWithLabel = ({
     }
   }, [isFocused]);
 
+  console.log('B:App');
+
   return (
     <>
       <StyledLabel htmlFor={id}>{children}</StyledLabel>
@@ -319,16 +321,19 @@ const InputWithLabel = ({
 // note that `autoFocus` is a shorthand for `autoFocus={true}`
 // every attribute that is set to `true` can use this shorthand
 
-const List = ({ list, onRemoveItem }) => (
-  <ul>
-    {list.map((item) => (
-      <Item
-        key={item.objectID}
-        item={item}
-        onRemoveItem={onRemoveItem}
-      />
-    ))}
-  </ul>
+const List = React.memo(
+  ({ list, onRemoveItem }) =>
+    console.log('B:List') || (
+      <ul>
+        {list.map((item) => (
+          <Item
+            key={item.objectID}
+            item={item}
+            onRemoveItem={onRemoveItem}
+          />
+        ))}
+      </ul>
+    )
 );
 
 const Item = ({ item, onRemoveItem }) => (
