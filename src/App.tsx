@@ -307,7 +307,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
       isFocused
       onInputChange={onSearchInput}
     >
-      <strong>Search:</strong>
+      {/* <strong>Search:</strong> */}
+      Search:
     </InputWithLabel>
 
     <StyledButtonLarge
@@ -409,6 +410,7 @@ const Item: React.FC<ItemProps> = ({ item, onRemoveItem }) => (
         onClick={() => onRemoveItem(item)}
         // className={`${styles.button} ${styles.buttonSmall}`}
       >
+        Dismiss{' '}
         <AiOutlineCheck height="18px" width="18px" color="green" />
       </StyledButtonSmall>
     </StyledColumn>
@@ -416,3 +418,5 @@ const Item: React.FC<ItemProps> = ({ item, onRemoveItem }) => (
 );
 
 export default App;
+
+export { storiesReducer, SearchForm, InputWithLabel, List, Item };
