@@ -199,3 +199,53 @@ describe('List', () => {
     expect(handleRemoveItem).toHaveBeenCalledWith(stories[0]);
   });
 });
+
+describe('InputWithLabel', () => {
+  const handleChange = vi.fn();
+  const labelText = 'Search';
+
+  it('renders the label correctly', () => {
+    render(
+      <InputWithLabel
+        id="search"
+        value="React"
+        onInputChange={handleChange}
+      >
+        {labelText}
+      </InputWithLabel>
+    );
+
+    expect(screen.getByLabelText(labelText)).toBeInTheDocument();
+  });
+
+  it('renders the input field with the correct value', () => {
+    render(
+      <InputWithLabel
+        id="search"
+        value="React"
+        onInputChange={handleChange}
+      >
+        {labelText}
+      </InputWithLabel>
+    );
+
+    expect(screen.getByDisplayValue('React')).toBeInTheDocument();
+  });
+
+  it('calls onInputChange when text is entered', () => {
+    render(
+      <InputWithLabel
+        id="search"
+        value=""
+        onInputChange={handleChange}
+      >
+        {labelText}
+      </InputWithLabel>
+    );
+
+    const input = screen.getByLabelText(labelText);
+    fireEvent.change(input, { target: { value: 'Redux' } });
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+  });
+});
