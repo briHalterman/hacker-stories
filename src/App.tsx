@@ -409,6 +409,7 @@ const Item: React.FC<ItemProps> = ({ item, onRemoveItem }) => (
         onClick={() => onRemoveItem(item)}
         // className={`${styles.button} ${styles.buttonSmall}`}
       >
+        Dismiss{' '}
         <AiOutlineCheck height="18px" width="18px" color="green" />
       </StyledButtonSmall>
     </StyledColumn>
