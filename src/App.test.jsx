@@ -53,6 +53,19 @@ describe('storiesReducer', () => {
     expect(newState.isError).toBeFalsy();
   });
 
+  it('correctly updates application state', () => {
+    const action = {
+      type: 'STORIES_FETCH_SUCCESS',
+      payload: stories,
+    };
+    const newState = storiesReducer(initialState, action);
+
+    expect(newState.isLoading).toBeFalsy();
+    expect(newState.isError).toBeFalsy();
+    expect(newState.data).toHaveLength(stories.length);
+    expect(newState.data).toEqual(stories);
+  });
+
   it('removes a story from all stories', () => {
     const action = { type: 'REMOVE_STORY', payload: storyOne };
     const state = { data: stories, isLoading: false, isError: false };
