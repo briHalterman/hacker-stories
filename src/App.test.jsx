@@ -176,3 +176,26 @@ describe('SearchForm', () => {
     );
   });
 });
+
+describe('List', () => {
+  const handleRemoveItem = vi.fn();
+
+  it('renders the correct number of items', () => {
+    render(<List list={stories} onRemoveItem={handleRemoveItem} />);
+
+    expect(screen.getAllByRole('listitem')).toHaveLength(
+      stories.length
+    );
+  });
+
+  it('calls onRemove when the button is clicked', () => {
+    render(<List list={stories} onRemoveItem={handleRemoveItem} />);
+
+    const removeButtons = screen.getAllByRole('button');
+
+    fireEvent.click(removeButtons[0]);
+
+    expect(handleRemoveItem).toHaveBeenCalledTimes(1);
+    expect(handleRemoveItem).toHaveBeenCalledWith(stories[0]);
+  });
+});
