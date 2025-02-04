@@ -307,7 +307,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
       isFocused
       onInputChange={onSearchInput}
     >
-      <strong>Search:</strong>
+      {/* <strong>Search:</strong> */}
+      Search:
     </InputWithLabel>
 
     <StyledButtonLarge

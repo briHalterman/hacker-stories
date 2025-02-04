@@ -1,0 +1,389 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App > renders snapshot 1`] = `
+<div
+  class="sc-KXCwU glPhVf"
+>
+  <h1
+    class="sc-gyycJP cHBFrB"
+  >
+    <svg
+      fill="currentColor"
+      height="50"
+      stroke="currentColor"
+      stroke-width="0"
+      viewBox="0 0 448 512"
+      width="50"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 32v448h448V32H0zm21.2 197.2H21c.1-.1.2-.3.3-.4 0 .1 0 .3-.1.4zm218 53.9V384h-31.4V281.3L128 128h37.3c52.5 98.3 49.2 101.2 59.3 125.6 12.3-27 5.8-24.4 60.6-125.6H320l-80.8 155.1z"
+      />
+    </svg>
+    My Hacker Stories
+  </h1>
+  <form
+    class="sc-kuACkN fgovyW"
+  >
+    <label
+      class="sc-hWWBcw gPqGSH"
+      for="search"
+    >
+      Search:
+    </label>
+     
+    <input
+      class="sc-jHbxoU kVFaUq"
+      id="search"
+      type="text"
+      value="JavaScript"
+    />
+    <button
+      class="sc-dDvxFM sc-gTrWKq ga-Dddz jlhJAx"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+  <ul>
+    <li
+      class="sc-eaUbBy eAxpTP"
+    >
+      <span
+        class="sc-gaZyOd gWIjgN"
+        width="40%"
+      >
+        <a
+          href="https://reactjs.org/"
+        >
+          React
+        </a>
+      </span>
+      <span
+        class="sc-gaZyOd gWIhiy"
+        width="30%"
+      >
+        Jordan Walke
+      </span>
+      <span
+        class="sc-gaZyOd gWIhVU"
+        width="10%"
+      >
+        3
+      </span>
+      <span
+        class="sc-gaZyOd gWIhVU"
+        width="10%"
+      >
+        4
+      </span>
+      <span
+        class="sc-gaZyOd gWIhVU"
+        width="10%"
+      >
+        <button
+          class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
+          type="button"
+        >
+          Dismiss
+           
+          <svg
+            color="green"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            style="color: green;"
+            viewBox="0 0 1024 1024"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+    <li
+      class="sc-eaUbBy eAxpTP"
+    >
+      <span
+        class="sc-gaZyOd gWIjgN"
+        width="40%"
+      >
+        <a
+          href="https://redux.js.org/"
+        >
+          Redux
+        </a>
+      </span>
+      <span
+        class="sc-gaZyOd gWIhiy"
+        width="30%"
+      >
+        Dan Abramov, Andrew Clark
+      </span>
+      <span
+        class="sc-gaZyOd gWIhVU"
+        width="10%"
+      >
+        2
+      </span>
+      <span
+        class="sc-gaZyOd gWIhVU"
+        width="10%"
+      >
+        5
+      </span>
+      <span
+        class="sc-gaZyOd gWIhVU"
+        width="10%"
+      >
+        <button
+          class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
+          type="button"
+        >
+          Dismiss
+           
+          <svg
+            color="green"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            style="color: green;"
+            viewBox="0 0 1024 1024"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`InputWithLabel > renders snapshot 1`] = `
+<label
+  class="sc-hWWBcw gPqGSH"
+  for="search"
+>
+  Search
+</label>
+`;
+
+exports[`List > renders snapshot 1`] = `
+<ul>
+  <li
+    class="sc-eaUbBy eAxpTP"
+  >
+    <span
+      class="sc-gaZyOd gWIjgN"
+      width="40%"
+    >
+      <a
+        href="https://reactjs.org/"
+      >
+        React
+      </a>
+    </span>
+    <span
+      class="sc-gaZyOd gWIhiy"
+      width="30%"
+    >
+      Jordan Walke
+    </span>
+    <span
+      class="sc-gaZyOd gWIhVU"
+      width="10%"
+    >
+      3
+    </span>
+    <span
+      class="sc-gaZyOd gWIhVU"
+      width="10%"
+    >
+      4
+    </span>
+    <span
+      class="sc-gaZyOd gWIhVU"
+      width="10%"
+    >
+      <button
+        class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
+        type="button"
+      >
+        Dismiss
+         
+        <svg
+          color="green"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          style="color: green;"
+          viewBox="0 0 1024 1024"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"
+          />
+        </svg>
+      </button>
+    </span>
+  </li>
+  <li
+    class="sc-eaUbBy eAxpTP"
+  >
+    <span
+      class="sc-gaZyOd gWIjgN"
+      width="40%"
+    >
+      <a
+        href="https://redux.js.org/"
+      >
+        Redux
+      </a>
+    </span>
+    <span
+      class="sc-gaZyOd gWIhiy"
+      width="30%"
+    >
+      Dan Abramov, Andrew Clark
+    </span>
+    <span
+      class="sc-gaZyOd gWIhVU"
+      width="10%"
+    >
+      2
+    </span>
+    <span
+      class="sc-gaZyOd gWIhVU"
+      width="10%"
+    >
+      5
+    </span>
+    <span
+      class="sc-gaZyOd gWIhVU"
+      width="10%"
+    >
+      <button
+        class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
+        type="button"
+      >
+        Dismiss
+         
+        <svg
+          color="green"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          style="color: green;"
+          viewBox="0 0 1024 1024"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"
+          />
+        </svg>
+      </button>
+    </span>
+  </li>
+</ul>
+`;
+
+exports[`SearchForm > renders snapshot 1`] = `
+<form
+  class="sc-kuACkN fgovyW"
+>
+  <label
+    class="sc-hWWBcw gPqGSH"
+    for="search"
+  >
+    Search:
+  </label>
+   
+  <input
+    class="sc-jHbxoU kVFaUq"
+    id="search"
+    type="text"
+    value="React"
+  />
+  <button
+    class="sc-dDvxFM sc-gTrWKq ga-Dddz jlhJAx"
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`storiesReducer > Item > renders snapshot 1`] = `
+<li
+  class="sc-eaUbBy eAxpTP"
+>
+  <span
+    class="sc-gaZyOd gWIjgN"
+    width="40%"
+  >
+    <a
+      href="https://reactjs.org/"
+    >
+      React
+    </a>
+  </span>
+  <span
+    class="sc-gaZyOd gWIhiy"
+    width="30%"
+  >
+    Jordan Walke
+  </span>
+  <span
+    class="sc-gaZyOd gWIhVU"
+    width="10%"
+  >
+    3
+  </span>
+  <span
+    class="sc-gaZyOd gWIhVU"
+    width="10%"
+  >
+    4
+  </span>
+  <span
+    class="sc-gaZyOd gWIhVU"
+    width="10%"
+  >
+    <button
+      class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
+      type="button"
+    >
+      Dismiss
+       
+      <svg
+        color="green"
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        stroke-width="0"
+        style="color: green;"
+        viewBox="0 0 1024 1024"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"
+        />
+      </svg>
+    </button>
+  </span>
+</li>
+`;

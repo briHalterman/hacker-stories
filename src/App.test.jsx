@@ -130,6 +130,11 @@ describe('storiesReducer', () => {
       expect(handleRemoveItem).toHaveBeenCalledTimes(1);
       expect(handleRemoveItem).toHaveBeenCalledWith(storyOne);
     });
+
+    it('renders snapshot', () => {
+      const { container } = render(<Item item={storyOne} />);
+      expect(container.firstChild).toMatchSnapshot();
+    });
   });
 });
 
@@ -179,6 +184,11 @@ describe('SearchForm', () => {
       expect.any(Object)
     );
   });
+
+  it('renders snapshot', () => {
+    const { container } = render(<SearchForm {...searchFormProps} />);
+    expect(container.firstChild).toMatchSnapshot();
+  });
 });
 
 describe('List', () => {
@@ -201,6 +211,12 @@ describe('List', () => {
 
     expect(handleRemoveItem).toHaveBeenCalledTimes(1);
     expect(handleRemoveItem).toHaveBeenCalledWith(stories[0]);
+  });
+  it('renders snapshot', () => {
+    const { container } = render(
+      <List list={stories} onRemoveItem={() => {}} />
+    );
+    expect(container.firstChild).toMatchSnapshot();
   });
 });
 
@@ -251,6 +267,19 @@ describe('InputWithLabel', () => {
     fireEvent.change(input, { target: { value: 'Redux' } });
 
     expect(handleChange).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders snapshot', () => {
+    const { container } = render(
+      <InputWithLabel
+        id="search"
+        value="React"
+        onInputChange={() => {}}
+      >
+        Search
+      </InputWithLabel>
+    );
+    expect(container.firstChild).toMatchSnapshot();
   });
 });
 
@@ -391,5 +420,21 @@ describe('App', () => {
       screen.queryByText('Dan Abromov, Andrew Clark')
     ).toBeNull();
     expect(screen.queryByText('Brendan Eich')).toBeInTheDocument();
+  });
+
+  it('renders snapshot', async () => {
+    const promise = Promise.resolve({
+      data: {
+        hits: stories,
+      },
+    });
+
+    axios.get.mockImplementationOnce(() => promise);
+
+    const { container } = render(<App />);
+
+    await waitFor(async () => await promise);
+
+    expect(container.firstChild).toMatchSnapshot();
   });
 });
