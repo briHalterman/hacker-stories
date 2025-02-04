@@ -3,5 +3,9 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
-  plugins: [svgr(), react()], 
+  plugins: [svgr(), react()],
+  test: {
+    environment: 'jsdom',
+    setupFiles: './tests/setup.js'
+  },
 });
