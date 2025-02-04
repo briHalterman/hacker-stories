@@ -18,6 +18,12 @@ import App, {
   InputWithLabel,
 } from './App';
 
+const initialState = {
+  data: [],
+  isLoading: false,
+  isError: false,
+};
+
 const storyOne = {
   title: 'React',
   url: 'https://reactjs.org/',
@@ -39,7 +45,13 @@ const storyTwo = {
 const stories = [storyOne, storyTwo];
 
 describe('storiesReducer', () => {
-  
+  it('fetches all stories', () => {
+    const action = { type: 'STORIES_FETCH_INIT' };
+    const newState = storiesReducer(initialState, action);
+
+    expect(newState.isLoading).toBeTruthy();
+    expect(newState.isError).toBeFalsy();
+  });
 
   it('removes a story from all stories', () => {
     const action = { type: 'REMOVE_STORY', payload: storyOne };
@@ -51,9 +63,8 @@ describe('storiesReducer', () => {
       data: [storyTwo],
       isLoading: false,
       isError: false,
-    }
+    };
 
-      expect(newState).toStrictEqual(expectedState);
+    expect(newState).toStrictEqual(expectedState);
   });
 });
-
