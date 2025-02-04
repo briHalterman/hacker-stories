@@ -66,6 +66,14 @@ describe('storiesReducer', () => {
     expect(newState.data).toEqual(stories);
   });
 
+  it('handles failed API request', () => {
+    const action = { type: 'STORIES_FETCH_FAILURE' };
+    const newState = storiesReducer(initialState, action);
+
+    expect(newState.isLoading).toBeFalsy();
+    expect(newState.isError).toBeTruthy();
+  })
+
   it('removes a story from all stories', () => {
     const action = { type: 'REMOVE_STORY', payload: storyOne };
     const state = { data: stories, isLoading: false, isError: false };
