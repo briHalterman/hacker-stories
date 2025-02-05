@@ -3,6 +3,7 @@ import * as React from 'react';
 import axios from 'axios';
 import styled, { createGlobalStyle } from 'styled-components';
 // import styles from './App.module.css';
+import { List } from './List';
 
 import { FaHackerNews } from 'react-icons/fa';
 import { AiOutlineCheck } from 'react-icons/ai';
@@ -132,26 +133,6 @@ const StyledHeadlinePrimary = styled.h1`
   letter-spacing: 2px;
 `;
 
-const StyledItem = styled.li`
-  display: flex;
-  align-items: center;
-  padding-bottom: 5px;
-`;
-
-const StyledColumn = styled.span`
-  padding: 0 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-
-  a {
-    color: inherit;
-  }
-
-  width: ${(props) => props.width};
-`;
-
 const StyledButton = styled.button`
   background: transparent;
   border: 1px solid #171212;
@@ -164,10 +145,6 @@ const StyledButton = styled.button`
     background: #171212;
     color: #ffffff;
   }
-`;
-
-const StyledButtonSmall = styled(StyledButton)`
-  padding: 5px;
 `;
 
 const StyledButtonLarge = styled(StyledButton)`
@@ -369,54 +346,9 @@ const InputWithLabel: React.FC<InputWithLabelProps> = ({
     </>
   );
 };
-
 // note that `autoFocus` is a shorthand for `autoFocus={true}`
 // every attribute that is set to `true` can use this shorthand
 
-type ListProps = {
-  list: Stories;
-  onRemoveItem: (item: Story) => void;
-};
-
-const List: React.FC<ListProps> = ({ list, onRemoveItem }) => (
-  <ul>
-    {list.map((item) => (
-      <Item
-        key={item.objectID}
-        item={item}
-        onRemoveItem={onRemoveItem}
-      />
-    ))}
-  </ul>
-);
-
-type ItemProps = {
-  item: Story;
-  onRemoveItem: (item: Story) => void;
-};
-
-// const Item = ({ item, onRemoveItem }: ItemProps) => (
-const Item: React.FC<ItemProps> = ({ item, onRemoveItem }) => (
-  <StyledItem>
-    <StyledColumn width="40%">
-      <a href={item.url}>{item.title}</a>
-    </StyledColumn>
-    <StyledColumn width="30%">{item.author}</StyledColumn>
-    <StyledColumn width="10%">{item.num_comments}</StyledColumn>
-    <StyledColumn width="10%">{item.points}</StyledColumn>
-    <StyledColumn width="10%">
-      <StyledButtonSmall
-        type="button"
-        onClick={() => onRemoveItem(item)}
-        // className={`${styles.button} ${styles.buttonSmall}`}
-      >
-        Dismiss{' '}
-        <AiOutlineCheck height="18px" width="18px" color="green" />
-      </StyledButtonSmall>
-    </StyledColumn>
-  </StyledItem>
-);
-
 export default App;
 
-export { storiesReducer, SearchForm, InputWithLabel, List, Item };
+export { storiesReducer, SearchForm, InputWithLabel, List };
