@@ -18,11 +18,13 @@ import {
 
 import App, {
   storiesReducer,
-  Item,
+  // Item,
   List,
   SearchForm,
   InputWithLabel,
 } from './App';
+
+// import List from './List';
 
 import axios from 'axios';
 
@@ -98,44 +100,6 @@ describe('storiesReducer', () => {
 
     expect(newState).toStrictEqual(expectedState);
   });
-
-  describe('Item', () => {
-    it('renders all properties', () => {
-      render(<Item item={storyOne} />);
-
-      expect(screen.getByText('Jordan Walke')).toBeInTheDocument();
-      expect(screen.getByText('React')).toHaveAttribute(
-        'href',
-        'https://reactjs.org/'
-      );
-    });
-
-    it('renders a clickable dismiss button', () => {
-      render(<Item item={storyOne} />);
-
-      // screen.getByRole('');
-
-      expect(screen.getByRole('button')).toBeInTheDocument();
-    });
-
-    it('clicking the dismiss button calls the callback handler', () => {
-      const handleRemoveItem = vi.fn();
-
-      render(
-        <Item item={storyOne} onRemoveItem={handleRemoveItem} />
-      );
-
-      fireEvent.click(screen.getByRole('button'));
-
-      expect(handleRemoveItem).toHaveBeenCalledTimes(1);
-      expect(handleRemoveItem).toHaveBeenCalledWith(storyOne);
-    });
-
-    it('renders snapshot', () => {
-      const { container } = render(<Item item={storyOne} />);
-      expect(container.firstChild).toMatchSnapshot();
-    });
-  });
 });
 
 describe('SearchForm', () => {
@@ -202,6 +166,26 @@ describe('List', () => {
     );
   });
 
+  it("renders all of an item's properties", () => {
+    render(
+      <List list={[storyOne]} onRemoveItem={handleRemoveItem} />
+    );
+
+    expect(screen.getByText('Jordan Walke')).toBeInTheDocument();
+    expect(screen.getByText('React')).toHaveAttribute(
+      'href',
+      'https://reactjs.org/'
+    );
+  });
+
+  it('renders a clickable dismiss button', () => {
+    render(
+      <List list={[storyOne]} onRemoveItem={handleRemoveItem} />
+    );
+
+    expect(screen.getByRole('button')).toBeInTheDocument();
+  });
+
   it('calls onRemove when the button is clicked', () => {
     render(<List list={stories} onRemoveItem={handleRemoveItem} />);
 
@@ -210,8 +194,9 @@ describe('List', () => {
     fireEvent.click(removeButtons[0]);
 
     expect(handleRemoveItem).toHaveBeenCalledTimes(1);
-    expect(handleRemoveItem).toHaveBeenCalledWith(stories[0]);
+    expect(handleRemoveItem).toHaveBeenCalledWith(storyOne);
   });
+
   it('renders snapshot', () => {
     const { container } = render(
       <List list={stories} onRemoveItem={() => {}} />

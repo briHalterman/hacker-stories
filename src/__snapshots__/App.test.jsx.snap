@@ -2,10 +2,10 @@
 
 exports[`App > renders snapshot 1`] = `
 <div
-  class="sc-KXCwU glPhVf"
+  class="sc-jHbxoU yMoAP"
 >
   <h1
-    class="sc-gyycJP cHBFrB"
+    class="sc-cGXZpB iWMcPH"
   >
     <svg
       fill="currentColor"
@@ -23,23 +23,23 @@ exports[`App > renders snapshot 1`] = `
     My Hacker Stories
   </h1>
   <form
-    class="sc-kuACkN fgovyW"
+    class="sc-hWWBcw izClKN"
   >
     <label
-      class="sc-hWWBcw gPqGSH"
+      class="sc-dDvxFM isruhE"
       for="search"
     >
       Search:
     </label>
      
     <input
-      class="sc-jHbxoU kVFaUq"
+      class="sc-jqVXSH gUYblK"
       id="search"
       type="text"
       value="JavaScript"
     />
     <button
-      class="sc-dDvxFM sc-gTrWKq ga-Dddz jlhJAx"
+      class="sc-gTrWKq sc-kuACkN cGgYTi jFVJfg"
       type="submit"
     >
       Submit
@@ -47,10 +47,10 @@ exports[`App > renders snapshot 1`] = `
   </form>
   <ul>
     <li
-      class="sc-eaUbBy eAxpTP"
+      class="sc-KXCwU biGGsF"
     >
       <span
-        class="sc-gaZyOd gWIjgN"
+        class="sc-gyycJP iraUpt"
         width="40%"
       >
         <a
@@ -60,29 +60,29 @@ exports[`App > renders snapshot 1`] = `
         </a>
       </span>
       <span
-        class="sc-gaZyOd gWIhiy"
+        class="sc-gyycJP iraSre"
         width="30%"
       >
         Jordan Walke
       </span>
       <span
-        class="sc-gaZyOd gWIhVU"
+        class="sc-gyycJP iraTeA"
         width="10%"
       >
         3
       </span>
       <span
-        class="sc-gaZyOd gWIhVU"
+        class="sc-gyycJP iraTeA"
         width="10%"
       >
         4
       </span>
       <span
-        class="sc-gaZyOd gWIhVU"
+        class="sc-gyycJP iraTeA"
         width="10%"
       >
         <button
-          class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
+          class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"
           type="button"
         >
           Dismiss
@@ -106,10 +106,10 @@ exports[`App > renders snapshot 1`] = `
       </span>
     </li>
     <li
-      class="sc-eaUbBy eAxpTP"
+      class="sc-KXCwU biGGsF"
     >
       <span
-        class="sc-gaZyOd gWIjgN"
+        class="sc-gyycJP iraUpt"
         width="40%"
       >
         <a
@@ -119,29 +119,29 @@ exports[`App > renders snapshot 1`] = `
         </a>
       </span>
       <span
-        class="sc-gaZyOd gWIhiy"
+        class="sc-gyycJP iraSre"
         width="30%"
       >
         Dan Abramov, Andrew Clark
       </span>
       <span
-        class="sc-gaZyOd gWIhVU"
+        class="sc-gyycJP iraTeA"
         width="10%"
       >
         2
       </span>
       <span
-        class="sc-gaZyOd gWIhVU"
+        class="sc-gyycJP iraTeA"
         width="10%"
       >
         5
       </span>
       <span
-        class="sc-gaZyOd gWIhVU"
+        class="sc-gyycJP iraTeA"
         width="10%"
       >
         <button
-          class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
+          class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"
           type="button"
         >
           Dismiss
@@ -170,7 +170,7 @@ exports[`App > renders snapshot 1`] = `
 
 exports[`InputWithLabel > renders snapshot 1`] = `
 <label
-  class="sc-hWWBcw gPqGSH"
+  class="sc-dDvxFM isruhE"
   for="search"
 >
   Search
@@ -180,10 +180,10 @@ exports[`InputWithLabel > renders snapshot 1`] = `
 exports[`List > renders snapshot 1`] = `
 <ul>
   <li
-    class="sc-eaUbBy eAxpTP"
+    class="sc-KXCwU biGGsF"
   >
     <span
-      class="sc-gaZyOd gWIjgN"
+      class="sc-gyycJP iraUpt"
       width="40%"
     >
       <a
@@ -193,29 +193,29 @@ exports[`List > renders snapshot 1`] = `
       </a>
     </span>
     <span
-      class="sc-gaZyOd gWIhiy"
+      class="sc-gyycJP iraSre"
       width="30%"
     >
       Jordan Walke
     </span>
     <span
-      class="sc-gaZyOd gWIhVU"
+      class="sc-gyycJP iraTeA"
       width="10%"
     >
       3
     </span>
     <span
-      class="sc-gaZyOd gWIhVU"
+      class="sc-gyycJP iraTeA"
       width="10%"
     >
       4
     </span>
     <span
-      class="sc-gaZyOd gWIhVU"
+      class="sc-gyycJP iraTeA"
       width="10%"
     >
       <button
-        class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
+        class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"
         type="button"
       >
         Dismiss
@@ -239,10 +239,10 @@ exports[`List > renders snapshot 1`] = `
     </span>
   </li>
   <li
-    class="sc-eaUbBy eAxpTP"
+    class="sc-KXCwU biGGsF"
   >
     <span
-      class="sc-gaZyOd gWIjgN"
+      class="sc-gyycJP iraUpt"
       width="40%"
     >
       <a
@@ -252,29 +252,29 @@ exports[`List > renders snapshot 1`] = `
       </a>
     </span>
     <span
-      class="sc-gaZyOd gWIhiy"
+      class="sc-gyycJP iraSre"
       width="30%"
     >
       Dan Abramov, Andrew Clark
     </span>
     <span
-      class="sc-gaZyOd gWIhVU"
+      class="sc-gyycJP iraTeA"
       width="10%"
     >
       2
     </span>
     <span
-      class="sc-gaZyOd gWIhVU"
+      class="sc-gyycJP iraTeA"
       width="10%"
     >
       5
     </span>
     <span
-      class="sc-gaZyOd gWIhVU"
+      class="sc-gyycJP iraTeA"
       width="10%"
     >
       <button
-        class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
+        class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"
         type="button"
       >
         Dismiss
@@ -302,88 +302,26 @@ exports[`List > renders snapshot 1`] = `
 
 exports[`SearchForm > renders snapshot 1`] = `
 <form
-  class="sc-kuACkN fgovyW"
+  class="sc-hWWBcw izClKN"
 >
   <label
-    class="sc-hWWBcw gPqGSH"
+    class="sc-dDvxFM isruhE"
     for="search"
   >
     Search:
   </label>
    
   <input
-    class="sc-jHbxoU kVFaUq"
+    class="sc-jqVXSH gUYblK"
     id="search"
     type="text"
     value="React"
   />
   <button
-    class="sc-dDvxFM sc-gTrWKq ga-Dddz jlhJAx"
+    class="sc-gTrWKq sc-kuACkN cGgYTi jFVJfg"
     type="submit"
   >
     Submit
   </button>
 </form>
-`;
-
-exports[`storiesReducer > Item > renders snapshot 1`] = `
-<li
-  class="sc-eaUbBy eAxpTP"
->
-  <span
-    class="sc-gaZyOd gWIjgN"
-    width="40%"
-  >
-    <a
-      href="https://reactjs.org/"
-    >
-      React
-    </a>
-  </span>
-  <span
-    class="sc-gaZyOd gWIhiy"
-    width="30%"
-  >
-    Jordan Walke
-  </span>
-  <span
-    class="sc-gaZyOd gWIhVU"
-    width="10%"
-  >
-    3
-  </span>
-  <span
-    class="sc-gaZyOd gWIhVU"
-    width="10%"
-  >
-    4
-  </span>
-  <span
-    class="sc-gaZyOd gWIhVU"
-    width="10%"
-  >
-    <button
-      class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
-      type="button"
-    >
-      Dismiss
-       
-      <svg
-        color="green"
-        fill="currentColor"
-        height="1em"
-        stroke="currentColor"
-        stroke-width="0"
-        style="color: green;"
-        viewBox="0 0 1024 1024"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"
-        />
-      </svg>
-    </button>
-  </span>
-</li>
 `;

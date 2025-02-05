@@ -3,9 +3,12 @@ import * as React from 'react';
 import axios from 'axios';
 import styled, { createGlobalStyle } from 'styled-components';
 // import styles from './App.module.css';
+import { List } from './List';
+import { InputWithLabel } from './InputWithLabel';
+import { SearchForm } from './SearchForm'
 
 import { FaHackerNews } from 'react-icons/fa';
-import { AiOutlineCheck } from 'react-icons/ai';
+// import { AiOutlineCheck } from 'react-icons/ai';
 
 type Story = {
   objectID: string;
@@ -132,26 +135,6 @@ const StyledHeadlinePrimary = styled.h1`
   letter-spacing: 2px;
 `;
 
-const StyledItem = styled.li`
-  display: flex;
-  align-items: center;
-  padding-bottom: 5px;
-`;
-
-const StyledColumn = styled.span`
-  padding: 0 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-
-  a {
-    color: inherit;
-  }
-
-  width: ${(props) => props.width};
-`;
-
 const StyledButton = styled.button`
   background: transparent;
   border: 1px solid #171212;
@@ -164,35 +147,6 @@ const StyledButton = styled.button`
     background: #171212;
     color: #ffffff;
   }
-`;
-
-const StyledButtonSmall = styled(StyledButton)`
-  padding: 5px;
-`;
-
-const StyledButtonLarge = styled(StyledButton)`
-  padding: 10px;
-`;
-
-const StyledSearchForm = styled.form`
-  padding: 10px 0 20px 0;
-  display: flex;
-  align-items: baseline;
-`;
-
-const StyledLabel = styled.label`
-  border-top: 1px solid #171212;
-  border-left: 1px solid #171212;
-  padding-left: 5px;
-  font-size: 24px;
-`;
-
-const StyledInput = styled.input`
-  border: none;
-  border-botttom: 1px solid #171212;
-  background-color: transparent;
-
-  font-size: 24px;
 `;
 
 const App = () => {
@@ -288,135 +242,6 @@ const App = () => {
   );
 };
 
-type SearchFormProps = {
-  searchTerm: string;
-  onSearchInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-};
-
-const SearchForm: React.FC<SearchFormProps> = ({
-  searchTerm,
-  onSearchInput,
-  onSearchSubmit,
-  // className,
-}) => (
-  <StyledSearchForm onSubmit={onSearchSubmit}>
-    <InputWithLabel
-      id="search"
-      value={searchTerm}
-      isFocused
-      onInputChange={onSearchInput}
-    >
-      {/* <strong>Search:</strong> */}
-      Search:
-    </InputWithLabel>
-
-    <StyledButtonLarge
-      type="submit"
-      disabled={!searchTerm}
-      // className={clsx(styles.button, styles.buttonLarge)}
-      // className={clsx(styles.button, {
-      //   [styles.buttonLarge]: isLarge,
-      // })}
-    >
-      Submit
-    </StyledButtonLarge>
-  </StyledSearchForm>
-);
-
-type InputWithLabelProps = {
-  id: string;
-  value: string;
-  type?: string;
-  onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  isFocused?: boolean;
-  children: React.ReactNode;
-};
-
-const InputWithLabel: React.FC<InputWithLabelProps> = ({
-  id,
-  value,
-  type = 'text',
-  onInputChange,
-  isFocused,
-  children,
-}) => {
-  // Create a ref with React's useRef Hook
-  const inputRef = React.useRef<HTMLInputElement>(null);
-
-  // Opt into React's lifecycle with React's useEffect Hook
-  React.useEffect(() => {
-    if (isFocused && inputRef.current) {
-      // Execute its focus programmatically as a side-effect, but only if isFocusedis set and the current property is existent
-      inputRef.current.focus();
-    }
-  }, [isFocused]);
-
-  return (
-    <>
-      <StyledLabel htmlFor={id}>{children}</StyledLabel>
-      &nbsp;
-      {/* Pass ref to element's JSX-reserved ref attribute */}
-      <StyledInput
-        ref={inputRef}
-        id={id}
-        type={type}
-        value={value}
-        // autoFocus={isFocused}
-        onChange={onInputChange}
-        // className={styles.input}
-      />
-    </>
-  );
-};
-
-// note that `autoFocus` is a shorthand for `autoFocus={true}`
-// every attribute that is set to `true` can use this shorthand
-
-type ListProps = {
-  list: Stories;
-  onRemoveItem: (item: Story) => void;
-};
-
-const List: React.FC<ListProps> = ({ list, onRemoveItem }) => (
-  <ul>
-    {list.map((item) => (
-      <Item
-        key={item.objectID}
-        item={item}
-        onRemoveItem={onRemoveItem}
-      />
-    ))}
-  </ul>
-);
-
-type ItemProps = {
-  item: Story;
-  onRemoveItem: (item: Story) => void;
-};
-
-// const Item = ({ item, onRemoveItem }: ItemProps) => (
-const Item: React.FC<ItemProps> = ({ item, onRemoveItem }) => (
-  <StyledItem>
-    <StyledColumn width="40%">
-      <a href={item.url}>{item.title}</a>
-    </StyledColumn>
-    <StyledColumn width="30%">{item.author}</StyledColumn>
-    <StyledColumn width="10%">{item.num_comments}</StyledColumn>
-    <StyledColumn width="10%">{item.points}</StyledColumn>
-    <StyledColumn width="10%">
-      <StyledButtonSmall
-        type="button"
-        onClick={() => onRemoveItem(item)}
-        // className={`${styles.button} ${styles.buttonSmall}`}
-      >
-        Dismiss{' '}
-        <AiOutlineCheck height="18px" width="18px" color="green" />
-      </StyledButtonSmall>
-    </StyledColumn>
-  </StyledItem>
-);
-
 export default App;
 
-export { storiesReducer, SearchForm, InputWithLabel, List, Item };
+export { storiesReducer, SearchForm, InputWithLabel, List };
