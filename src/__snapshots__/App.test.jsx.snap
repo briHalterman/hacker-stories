@@ -2,10 +2,10 @@
 
 exports[`App > renders snapshot 1`] = `
 <div
-  class="sc-gTrWKq LNgPR"
+  class="sc-jHbxoU yMoAP"
 >
   <h1
-    class="sc-kuACkN bLWJey"
+    class="sc-cGXZpB iWMcPH"
   >
     <svg
       fill="currentColor"
@@ -23,7 +23,7 @@ exports[`App > renders snapshot 1`] = `
     My Hacker Stories
   </h1>
   <form
-    class="sc-cGXZpB eCxtyD"
+    class="sc-hWWBcw izClKN"
   >
     <label
       class="sc-dDvxFM isruhE"
@@ -39,7 +39,7 @@ exports[`App > renders snapshot 1`] = `
       value="JavaScript"
     />
     <button
-      class="sc-hWWBcw sc-jHbxoU inNI dJEJvn"
+      class="sc-gTrWKq sc-kuACkN cGgYTi jFVJfg"
       type="submit"
     >
       Submit
@@ -302,7 +302,7 @@ exports[`List > renders snapshot 1`] = `
 
 exports[`SearchForm > renders snapshot 1`] = `
 <form
-  class="sc-cGXZpB eCxtyD"
+  class="sc-hWWBcw izClKN"
 >
   <label
     class="sc-dDvxFM isruhE"
@@ -318,7 +318,7 @@ exports[`SearchForm > renders snapshot 1`] = `
     value="React"
   />
   <button
-    class="sc-hWWBcw sc-jHbxoU inNI dJEJvn"
+    class="sc-gTrWKq sc-kuACkN cGgYTi jFVJfg"
     type="submit"
   >
     Submit

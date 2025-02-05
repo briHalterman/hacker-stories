@@ -64,4 +64,4 @@ const InputWithLabel: React.FC<InputWithLabelProps> = ({
 // note that `autoFocus` is a shorthand for `autoFocus={true}`
 // every attribute that is set to `true` can use this shorthand
 
-export default InputWithLabel;
+export { InputWithLabel };

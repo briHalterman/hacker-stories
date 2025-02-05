@@ -4,11 +4,11 @@ import axios from 'axios';
 import styled, { createGlobalStyle } from 'styled-components';
 // import styles from './App.module.css';
 import { List } from './List';
+import { InputWithLabel } from './InputWithLabel';
+import { SearchForm } from './SearchForm'
 
 import { FaHackerNews } from 'react-icons/fa';
 // import { AiOutlineCheck } from 'react-icons/ai';
-
-import InputWithLabel from './InputWithLabel';
 
 type Story = {
   objectID: string;
@@ -149,16 +149,6 @@ const StyledButton = styled.button`
   }
 `;
 
-const StyledButtonLarge = styled(StyledButton)`
-  padding: 10px;
-`;
-
-const StyledSearchForm = styled.form`
-  padding: 10px 0 20px 0;
-  display: flex;
-  align-items: baseline;
-`;
-
 const App = () => {
   const [searchTerm, setSearchTerm] = useStorageState(
     'search',
@@ -251,42 +241,6 @@ const App = () => {
     </>
   );
 };
-
-type SearchFormProps = {
-  searchTerm: string;
-  onSearchInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-};
-
-const SearchForm: React.FC<SearchFormProps> = ({
-  searchTerm,
-  onSearchInput,
-  onSearchSubmit,
-  // className,
-}) => (
-  <StyledSearchForm onSubmit={onSearchSubmit}>
-    <InputWithLabel
-      id="search"
-      value={searchTerm}
-      isFocused
-      onInputChange={onSearchInput}
-    >
-      {/* <strong>Search:</strong> */}
-      Search:
-    </InputWithLabel>
-
-    <StyledButtonLarge
-      type="submit"
-      disabled={!searchTerm}
-      // className={clsx(styles.button, styles.buttonLarge)}
-      // className={clsx(styles.button, {
-      //   [styles.buttonLarge]: isLarge,
-      // })}
-    >
-      Submit
-    </StyledButtonLarge>
-  </StyledSearchForm>
-);
 
 export default App;
 
