@@ -33,7 +33,7 @@ exports[`App > renders snapshot 1`] = `
     </label>
      
     <input
-      class="sc-jqVXSH bBGqlO"
+      class="sc-jqVXSH gUYblK"
       id="search"
       type="text"
       value="JavaScript"
@@ -312,7 +312,7 @@ exports[`SearchForm > renders snapshot 1`] = `
   </label>
    
   <input
-    class="sc-jqVXSH bBGqlO"
+    class="sc-jqVXSH gUYblK"
     id="search"
     type="text"
     value="React"
