@@ -2,10 +2,10 @@
 
 exports[`App > renders snapshot 1`] = `
 <div
-  class="sc-jHbxoU yMoAP"
+  class="sc-jZCRgm gmqXWi"
 >
   <h1
-    class="sc-cGXZpB iWMcPH"
+    class="sc-cZztgT czHjcT"
   >
     <svg
       fill="currentColor"
@@ -23,23 +23,23 @@ exports[`App > renders snapshot 1`] = `
     My Hacker Stories
   </h1>
   <form
-    class="sc-hWWBcw izClKN"
+    class="sc-cGXZpB eCxtyD"
   >
     <label
-      class="sc-dDvxFM isruhE"
+      class="sc-gTrWKq drXWDF"
       for="search"
     >
       Search:
     </label>
      
     <input
-      class="sc-jqVXSH gUYblK"
+      class="sc-kuACkN jVtaiN"
       id="search"
       type="text"
       value="JavaScript"
     />
     <button
-      class="sc-gTrWKq sc-kuACkN cGgYTi jFVJfg"
+      class="sc-hWWBcw sc-jHbxoU inNI dJEJvn"
       type="submit"
     >
       Submit
@@ -47,41 +47,45 @@ exports[`App > renders snapshot 1`] = `
   </form>
   <ul>
     <div
-      style="display: flex; font-weight: bold;"
+      class="sc-eaUbBy dvkHrQ"
     >
       <span
-        style="width: 40%;"
+        class="sc-gaZyOd hA-DaVc"
+        width="40%"
       >
         Title
       </span>
       <span
-        style="width: 30%;"
+        class="sc-gaZyOd jKrUdn"
+        width="30%"
       >
         Author
       </span>
       <span
-        style="width: 10%;"
+        class="sc-gaZyOd ggsWWl"
+        width="10%"
       >
         Comments
       </span>
       <span
-        style="width: 10%;"
+        class="sc-gaZyOd ggsWWl"
+        width="10%"
       >
         Points
       </span>
       <span
-        style="width: 10%;"
+        class="sc-gaZyOd ggsWWl"
+        width="10%"
       >
         Actions
       </span>
     </div>
     <li
       class="sc-KXCwU biGGsF"
-      style="display: flex;"
     >
       <span
-        class="sc-gyycJP fiJYwg"
-        style="width: 40%;"
+        class="sc-gyycJP eNgHDH"
+        width="40%"
       >
         <a
           href="https://reactjs.org/"
@@ -90,29 +94,29 @@ exports[`App > renders snapshot 1`] = `
         </a>
       </span>
       <span
-        class="sc-gyycJP fiJYwg"
-        style="width: 30%;"
+        class="sc-gyycJP fELikQ"
+        width="30%"
       >
         Jordan Walke
       </span>
       <span
-        class="sc-gyycJP fiJYwg"
-        style="width: 10%;"
+        class="sc-gyycJP iSAiuG"
+        width="10%"
       >
         3
       </span>
       <span
-        class="sc-gyycJP fiJYwg"
-        style="width: 10%;"
+        class="sc-gyycJP iSAiuG"
+        width="10%"
       >
         4
       </span>
       <span
-        class="sc-gyycJP fiJYwg"
-        style="width: 10%;"
+        class="sc-gyycJP iSAiuG"
+        width="10%"
       >
         <button
-          class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"
+          class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
           type="button"
         >
           Dismiss
@@ -137,11 +141,10 @@ exports[`App > renders snapshot 1`] = `
     </li>
     <li
       class="sc-KXCwU biGGsF"
-      style="display: flex;"
     >
       <span
-        class="sc-gyycJP fiJYwg"
-        style="width: 40%;"
+        class="sc-gyycJP eNgHDH"
+        width="40%"
       >
         <a
           href="https://redux.js.org/"
@@ -150,29 +153,29 @@ exports[`App > renders snapshot 1`] = `
         </a>
       </span>
       <span
-        class="sc-gyycJP fiJYwg"
-        style="width: 30%;"
+        class="sc-gyycJP fELikQ"
+        width="30%"
       >
         Dan Abramov, Andrew Clark
       </span>
       <span
-        class="sc-gyycJP fiJYwg"
-        style="width: 10%;"
+        class="sc-gyycJP iSAiuG"
+        width="10%"
       >
         2
       </span>
       <span
-        class="sc-gyycJP fiJYwg"
-        style="width: 10%;"
+        class="sc-gyycJP iSAiuG"
+        width="10%"
       >
         5
       </span>
       <span
-        class="sc-gyycJP fiJYwg"
-        style="width: 10%;"
+        class="sc-gyycJP iSAiuG"
+        width="10%"
       >
         <button
-          class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"
+          class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
           type="button"
         >
           Dismiss
@@ -201,7 +204,7 @@ exports[`App > renders snapshot 1`] = `
 
 exports[`InputWithLabel > renders snapshot 1`] = `
 <label
-  class="sc-dDvxFM isruhE"
+  class="sc-gTrWKq drXWDF"
   for="search"
 >
   Search
@@ -211,41 +214,45 @@ exports[`InputWithLabel > renders snapshot 1`] = `
 exports[`List > renders snapshot 1`] = `
 <ul>
   <div
-    style="display: flex; font-weight: bold;"
+    class="sc-eaUbBy dvkHrQ"
   >
     <span
-      style="width: 40%;"
+      class="sc-gaZyOd hA-DaVc"
+      width="40%"
     >
       Title
     </span>
     <span
-      style="width: 30%;"
+      class="sc-gaZyOd jKrUdn"
+      width="30%"
     >
       Author
     </span>
     <span
-      style="width: 10%;"
+      class="sc-gaZyOd ggsWWl"
+      width="10%"
     >
       Comments
     </span>
     <span
-      style="width: 10%;"
+      class="sc-gaZyOd ggsWWl"
+      width="10%"
     >
       Points
     </span>
     <span
-      style="width: 10%;"
+      class="sc-gaZyOd ggsWWl"
+      width="10%"
     >
       Actions
     </span>
   </div>
   <li
     class="sc-KXCwU biGGsF"
-    style="display: flex;"
   >
     <span
-      class="sc-gyycJP fiJYwg"
-      style="width: 40%;"
+      class="sc-gyycJP eNgHDH"
+      width="40%"
     >
       <a
         href="https://reactjs.org/"
@@ -254,29 +261,29 @@ exports[`List > renders snapshot 1`] = `
       </a>
     </span>
     <span
-      class="sc-gyycJP fiJYwg"
-      style="width: 30%;"
+      class="sc-gyycJP fELikQ"
+      width="30%"
     >
       Jordan Walke
     </span>
     <span
-      class="sc-gyycJP fiJYwg"
-      style="width: 10%;"
+      class="sc-gyycJP iSAiuG"
+      width="10%"
     >
       3
     </span>
     <span
-      class="sc-gyycJP fiJYwg"
-      style="width: 10%;"
+      class="sc-gyycJP iSAiuG"
+      width="10%"
     >
       4
     </span>
     <span
-      class="sc-gyycJP fiJYwg"
-      style="width: 10%;"
+      class="sc-gyycJP iSAiuG"
+      width="10%"
     >
       <button
-        class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"
+        class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
         type="button"
       >
         Dismiss
@@ -301,11 +308,10 @@ exports[`List > renders snapshot 1`] = `
   </li>
   <li
     class="sc-KXCwU biGGsF"
-    style="display: flex;"
   >
     <span
-      class="sc-gyycJP fiJYwg"
-      style="width: 40%;"
+      class="sc-gyycJP eNgHDH"
+      width="40%"
     >
       <a
         href="https://redux.js.org/"
@@ -314,29 +320,29 @@ exports[`List > renders snapshot 1`] = `
       </a>
     </span>
     <span
-      class="sc-gyycJP fiJYwg"
-      style="width: 30%;"
+      class="sc-gyycJP fELikQ"
+      width="30%"
     >
       Dan Abramov, Andrew Clark
     </span>
     <span
-      class="sc-gyycJP fiJYwg"
-      style="width: 10%;"
+      class="sc-gyycJP iSAiuG"
+      width="10%"
     >
       2
     </span>
     <span
-      class="sc-gyycJP fiJYwg"
-      style="width: 10%;"
+      class="sc-gyycJP iSAiuG"
+      width="10%"
     >
       5
     </span>
     <span
-      class="sc-gyycJP fiJYwg"
-      style="width: 10%;"
+      class="sc-gyycJP iSAiuG"
+      width="10%"
     >
       <button
-        class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"
+        class="sc-dDvxFM sc-jqVXSH ga-Dddz gRqVEr"
         type="button"
       >
         Dismiss
@@ -364,23 +370,23 @@ exports[`List > renders snapshot 1`] = `
 
 exports[`SearchForm > renders snapshot 1`] = `
 <form
-  class="sc-hWWBcw izClKN"
+  class="sc-cGXZpB eCxtyD"
 >
   <label
-    class="sc-dDvxFM isruhE"
+    class="sc-gTrWKq drXWDF"
     for="search"
   >
     Search:
   </label>
    
   <input
-    class="sc-jqVXSH gUYblK"
+    class="sc-kuACkN jVtaiN"
     id="search"
     type="text"
     value="React"
   />
   <button
-    class="sc-gTrWKq sc-kuACkN cGgYTi jFVJfg"
+    class="sc-hWWBcw sc-jHbxoU inNI dJEJvn"
     type="submit"
   >
     Submit

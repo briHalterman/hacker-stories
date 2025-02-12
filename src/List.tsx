@@ -25,12 +25,21 @@ const StyledColumn = styled.span`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  width: ${(props) => props.width};
 
   a {
     color: inherit;
   }
+`;
 
+const StyledHeader = styled.div`
+  display: flex;
+  font-weight: bold;
+`;
+
+const StyledHeaderColumn = styled.span`
   width: ${(props) => props.width};
+  text-align: left;
 `;
 
 const StyledButton = styled.button`
@@ -58,13 +67,13 @@ type ListProps = {
 
 const List: React.FC<ListProps> = ({ list, onRemoveItem }) => (
   <ul>
-    <div style={{ display: 'flex', fontWeight: 'bold' }}>
-      <span style={{ width: '40%' }}>Title</span>
-      <span style={{ width: '30%' }}>Author</span>
-      <span style={{ width: '10%' }}>Comments</span>
-      <span style={{ width: '10%' }}>Points</span>
-      <span style={{ width: '10%' }}>Actions</span>
-    </div>
+    <StyledHeader>
+      <StyledHeaderColumn width='40%'>Title</StyledHeaderColumn>
+      <StyledHeaderColumn width='30%'>Author</StyledHeaderColumn>
+      <StyledHeaderColumn width='10%'>Comments</StyledHeaderColumn>
+      <StyledHeaderColumn width='10%'>Points</StyledHeaderColumn>
+      <StyledHeaderColumn width='10%'>Actions</StyledHeaderColumn>
+    </StyledHeader>
 
     {list.map((item) => (
       <Item
@@ -81,22 +90,21 @@ type ItemProps = {
   onRemoveItem: (item: Story) => void;
 };
 
-// const Item = ({ item, onRemoveItem }: ItemProps) => (
 const Item: React.FC<ItemProps> = ({ item, onRemoveItem }) => (
-  <StyledItem style={{ display: 'flex' }}>
-    <StyledColumn style={{ width: '40%' }}>
+  <StyledItem>
+    <StyledColumn width='40%'>
       <a href={item.url}>{item.title}</a>
     </StyledColumn>
-    <StyledColumn style={{ width: '30%' }}>
+    <StyledColumn width='30%'>
       {item.author}
     </StyledColumn>
-    <StyledColumn style={{ width: '10%' }}>
+    <StyledColumn width='10%'>
       {item.num_comments}
     </StyledColumn>
-    <StyledColumn style={{ width: '10%' }}>
+    <StyledColumn width='10%'>
       {item.points}
     </StyledColumn>
-    <StyledColumn style={{ width: '10%' }}>
+    <StyledColumn width='10%'>
       <StyledButtonSmall
         type="button"
         onClick={() => onRemoveItem(item)}
