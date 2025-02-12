@@ -46,6 +46,35 @@ exports[`App > renders snapshot 1`] = `
     </button>
   </form>
   <ul>
+    <div
+      style="display: flex; font-weight: bold;"
+    >
+      <span
+        style="width: 40%;"
+      >
+        Title
+      </span>
+      <span
+        style="width: 30%;"
+      >
+        Author
+      </span>
+      <span
+        style="width: 10%;"
+      >
+        Comments
+      </span>
+      <span
+        style="width: 10%;"
+      >
+        Points
+      </span>
+      <span
+        style="width: 10%;"
+      >
+        Actions
+      </span>
+    </div>
     <li
       class="sc-KXCwU biGGsF"
     >
@@ -179,6 +208,35 @@ exports[`InputWithLabel > renders snapshot 1`] = `
 
 exports[`List > renders snapshot 1`] = `
 <ul>
+  <div
+    style="display: flex; font-weight: bold;"
+  >
+    <span
+      style="width: 40%;"
+    >
+      Title
+    </span>
+    <span
+      style="width: 30%;"
+    >
+      Author
+    </span>
+    <span
+      style="width: 10%;"
+    >
+      Comments
+    </span>
+    <span
+      style="width: 10%;"
+    >
+      Points
+    </span>
+    <span
+      style="width: 10%;"
+    >
+      Actions
+    </span>
+  </div>
   <li
     class="sc-KXCwU biGGsF"
   >
