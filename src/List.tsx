@@ -20,7 +20,11 @@ const StyledItem = styled.li`
   padding-bottom: 5px;
 `;
 
-const StyledColumn = styled.span`
+type StyledColumnProps = {
+  width: string;
+};
+
+const StyledColumn = styled.span<StyledColumnProps>`
   /* padding: 0 5px; */
   white-space: nowrap;
   overflow: hidden;
@@ -38,7 +42,11 @@ const StyledHeader = styled.div`
   font-weight: bold;
 `;
 
-const StyledHeaderColumn = styled.span`
+type StyledHeaderColumnProps = {
+  width: string;
+};
+
+const StyledHeaderColumn = styled.span<StyledHeaderColumnProps>`
   width: ${(props) => props.width};
   text-align: left;
 `;
@@ -61,12 +69,23 @@ const StyledButtonSmall = styled(StyledButton)`
   padding: 5px;
 `;
 
-const StyledSortButton = styled(StyledButton)`
+const StyledSortButton = styled(StyledButton)<{ $isActive: boolean }>`
   background-color: ${(props) =>
-    props.isActive ? '#ff875c' : 'inherit'};
+    props.$isActive ? '#ff875c' : 'inherit'};
 `;
 
-const SORTS = {
+interface ItemType {
+  objectID: string;
+  title: string;
+  author: string;
+  num_comments: number;
+  points: number;
+  url: string;
+}
+
+type SortFunction = (list: ItemType[]) => ItemType[];
+
+const SORTS: Record<string, SortFunction> = {
   NONE: (list) => list,
   TITLE: (list) => sortBy(list, 'title'),
   AUTHOR: (list) => sortBy(list, 'author'),
@@ -82,7 +101,7 @@ type ListProps = {
 const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
   const [sort, setSort] = React.useState('NONE');
 
-  const handleSort = (sortKey) => {
+  const handleSort = (sortKey: string) => {
     setSort(sortKey);
   };
 
@@ -94,7 +113,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
       <StyledHeader>
         <StyledHeaderColumn width="40%">
           <StyledSortButton
-            isActive={sort === 'TITLE'}
+            $isActive={sort === 'TITLE'}
             onClick={() => handleSort('TITLE')}
           >
             Title
@@ -102,7 +121,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
         </StyledHeaderColumn>
         <StyledHeaderColumn width="30%">
           <StyledSortButton
-            isActive={sort === 'AUTHOR'}
+            $isActive={sort === 'AUTHOR'}
             onClick={() => handleSort('AUTHOR')}
           >
             Author
@@ -110,7 +129,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">
           <StyledSortButton
-            isActive={sort === 'COMMENTS'}
+            $isActive={sort === 'COMMENTS'}
             onClick={() => handleSort('COMMENTS')}
           >
             Comments
@@ -118,7 +137,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">
           <StyledSortButton
-            isActive={sort === 'POINTS'}
+            $isActive={sort === 'POINTS'}
             onClick={() => handleSort('POINTS')}
           >
             Points
