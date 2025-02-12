@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { AiOutlineCheck } from 'react-icons/ai';
+import { sortBy } from 'lodash';
 
 type Story = {
   objectID: string;
@@ -19,18 +20,35 @@ const StyledItem = styled.li`
   padding-bottom: 5px;
 `;
 
-const StyledColumn = styled.span`
-  padding: 0 5px;
+type StyledColumnProps = {
+  width: string;
+};
+
+const StyledColumn = styled.span<StyledColumnProps>`
+  /* padding: 0 5px; */
   white-space: nowrap;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  width: ${(props) => props.width};
 
   a {
     color: inherit;
   }
+`;
 
+const StyledHeader = styled.div`
+  display: flex;
+  font-weight: bold;
+`;
+
+type StyledHeaderColumnProps = {
+  width: string;
+};
+
+const StyledHeaderColumn = styled.span<StyledHeaderColumnProps>`
   width: ${(props) => props.width};
+  text-align: left;
 `;
 
 const StyledButton = styled.button`
@@ -51,29 +69,99 @@ const StyledButtonSmall = styled(StyledButton)`
   padding: 5px;
 `;
 
+const StyledSortButton = styled(StyledButton)<{ $isActive: boolean }>`
+  background-color: ${(props) =>
+    props.$isActive ? '#ff875c' : 'inherit'};
+`;
+
+interface ItemType {
+  objectID: string;
+  title: string;
+  author: string;
+  num_comments: number;
+  points: number;
+  url: string;
+}
+
+type SortFunction = (list: ItemType[]) => ItemType[];
+
+const SORTS: Record<string, SortFunction> = {
+  NONE: (list) => list,
+  TITLE: (list) => sortBy(list, 'title'),
+  AUTHOR: (list) => sortBy(list, 'author'),
+  COMMENTS: (list) => sortBy(list, 'num_comments').reverse(),
+  POINTS: (list) => sortBy(list, 'points').reverse(),
+};
+
 type ListProps = {
   list: Stories;
   onRemoveItem: (item: Story) => void;
 };
 
-const List: React.FC<ListProps> = ({ list, onRemoveItem }) => (
-  <ul>
-    {list.map((item) => (
-      <Item
-        key={item.objectID}
-        item={item}
-        onRemoveItem={onRemoveItem}
-      />
-    ))}
-  </ul>
-);
+const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
+  const [sort, setSort] = React.useState('NONE');
+
+  const handleSort = (sortKey: string) => {
+    setSort(sortKey);
+  };
+
+  const sortFunction = SORTS[sort] || SORTS.NONE;
+  const sortedList = sortFunction(list);
+
+  return (
+    <ul>
+      <StyledHeader>
+        <StyledHeaderColumn width="40%">
+          <StyledSortButton
+            $isActive={sort === 'TITLE'}
+            onClick={() => handleSort('TITLE')}
+          >
+            Title
+          </StyledSortButton>
+        </StyledHeaderColumn>
+        <StyledHeaderColumn width="30%">
+          <StyledSortButton
+            $isActive={sort === 'AUTHOR'}
+            onClick={() => handleSort('AUTHOR')}
+          >
+            Author
+          </StyledSortButton>
+        </StyledHeaderColumn>
+        <StyledHeaderColumn width="10%">
+          <StyledSortButton
+            $isActive={sort === 'COMMENTS'}
+            onClick={() => handleSort('COMMENTS')}
+          >
+            Comments
+          </StyledSortButton>
+        </StyledHeaderColumn>
+        <StyledHeaderColumn width="10%">
+          <StyledSortButton
+            $isActive={sort === 'POINTS'}
+            onClick={() => handleSort('POINTS')}
+          >
+            Points
+          </StyledSortButton>
+        </StyledHeaderColumn>
+        <StyledHeaderColumn width="10%">Actions</StyledHeaderColumn>
+      </StyledHeader>
+
+      {sortedList.map((item) => (
+        <Item
+          key={item.objectID}
+          item={item}
+          onRemoveItem={onRemoveItem}
+        />
+      ))}
+    </ul>
+  );
+};
 
 type ItemProps = {
   item: Story;
   onRemoveItem: (item: Story) => void;
 };
 
-// const Item = ({ item, onRemoveItem }: ItemProps) => (
 const Item: React.FC<ItemProps> = ({ item, onRemoveItem }) => (
   <StyledItem>
     <StyledColumn width="40%">
