@@ -77,10 +77,11 @@ exports[`App > renders snapshot 1`] = `
     </div>
     <li
       class="sc-KXCwU biGGsF"
+      style="display: flex;"
     >
       <span
-        class="sc-gyycJP iraUpt"
-        width="40%"
+        class="sc-gyycJP fiJYwg"
+        style="width: 40%;"
       >
         <a
           href="https://reactjs.org/"
@@ -89,26 +90,26 @@ exports[`App > renders snapshot 1`] = `
         </a>
       </span>
       <span
-        class="sc-gyycJP iraSre"
-        width="30%"
+        class="sc-gyycJP fiJYwg"
+        style="width: 30%;"
       >
         Jordan Walke
       </span>
       <span
-        class="sc-gyycJP iraTeA"
-        width="10%"
+        class="sc-gyycJP fiJYwg"
+        style="width: 10%;"
       >
         3
       </span>
       <span
-        class="sc-gyycJP iraTeA"
-        width="10%"
+        class="sc-gyycJP fiJYwg"
+        style="width: 10%;"
       >
         4
       </span>
       <span
-        class="sc-gyycJP iraTeA"
-        width="10%"
+        class="sc-gyycJP fiJYwg"
+        style="width: 10%;"
       >
         <button
           class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"
@@ -136,10 +137,11 @@ exports[`App > renders snapshot 1`] = `
     </li>
     <li
       class="sc-KXCwU biGGsF"
+      style="display: flex;"
     >
       <span
-        class="sc-gyycJP iraUpt"
-        width="40%"
+        class="sc-gyycJP fiJYwg"
+        style="width: 40%;"
       >
         <a
           href="https://redux.js.org/"
@@ -148,26 +150,26 @@ exports[`App > renders snapshot 1`] = `
         </a>
       </span>
       <span
-        class="sc-gyycJP iraSre"
-        width="30%"
+        class="sc-gyycJP fiJYwg"
+        style="width: 30%;"
       >
         Dan Abramov, Andrew Clark
       </span>
       <span
-        class="sc-gyycJP iraTeA"
-        width="10%"
+        class="sc-gyycJP fiJYwg"
+        style="width: 10%;"
       >
         2
       </span>
       <span
-        class="sc-gyycJP iraTeA"
-        width="10%"
+        class="sc-gyycJP fiJYwg"
+        style="width: 10%;"
       >
         5
       </span>
       <span
-        class="sc-gyycJP iraTeA"
-        width="10%"
+        class="sc-gyycJP fiJYwg"
+        style="width: 10%;"
       >
         <button
           class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"
@@ -239,10 +241,11 @@ exports[`List > renders snapshot 1`] = `
   </div>
   <li
     class="sc-KXCwU biGGsF"
+    style="display: flex;"
   >
     <span
-      class="sc-gyycJP iraUpt"
-      width="40%"
+      class="sc-gyycJP fiJYwg"
+      style="width: 40%;"
     >
       <a
         href="https://reactjs.org/"
@@ -251,26 +254,26 @@ exports[`List > renders snapshot 1`] = `
       </a>
     </span>
     <span
-      class="sc-gyycJP iraSre"
-      width="30%"
+      class="sc-gyycJP fiJYwg"
+      style="width: 30%;"
     >
       Jordan Walke
     </span>
     <span
-      class="sc-gyycJP iraTeA"
-      width="10%"
+      class="sc-gyycJP fiJYwg"
+      style="width: 10%;"
     >
       3
     </span>
     <span
-      class="sc-gyycJP iraTeA"
-      width="10%"
+      class="sc-gyycJP fiJYwg"
+      style="width: 10%;"
     >
       4
     </span>
     <span
-      class="sc-gyycJP iraTeA"
-      width="10%"
+      class="sc-gyycJP fiJYwg"
+      style="width: 10%;"
     >
       <button
         class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"
@@ -298,10 +301,11 @@ exports[`List > renders snapshot 1`] = `
   </li>
   <li
     class="sc-KXCwU biGGsF"
+    style="display: flex;"
   >
     <span
-      class="sc-gyycJP iraUpt"
-      width="40%"
+      class="sc-gyycJP fiJYwg"
+      style="width: 40%;"
     >
       <a
         href="https://redux.js.org/"
@@ -310,26 +314,26 @@ exports[`List > renders snapshot 1`] = `
       </a>
     </span>
     <span
-      class="sc-gyycJP iraSre"
-      width="30%"
+      class="sc-gyycJP fiJYwg"
+      style="width: 30%;"
     >
       Dan Abramov, Andrew Clark
     </span>
     <span
-      class="sc-gyycJP iraTeA"
-      width="10%"
+      class="sc-gyycJP fiJYwg"
+      style="width: 10%;"
     >
       2
     </span>
     <span
-      class="sc-gyycJP iraTeA"
-      width="10%"
+      class="sc-gyycJP fiJYwg"
+      style="width: 10%;"
     >
       5
     </span>
     <span
-      class="sc-gyycJP iraTeA"
-      width="10%"
+      class="sc-gyycJP fiJYwg"
+      style="width: 10%;"
     >
       <button
         class="sc-eaUbBy sc-gaZyOd iFpHNS becyMb"

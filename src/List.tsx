@@ -20,7 +20,7 @@ const StyledItem = styled.li`
 `;
 
 const StyledColumn = styled.span`
-  padding: 0 5px;
+  /* padding: 0 5px; */
   white-space: nowrap;
   overflow: hidden;
   white-space: nowrap;
@@ -83,14 +83,20 @@ type ItemProps = {
 
 // const Item = ({ item, onRemoveItem }: ItemProps) => (
 const Item: React.FC<ItemProps> = ({ item, onRemoveItem }) => (
-  <StyledItem>
-    <StyledColumn width="40%">
+  <StyledItem style={{ display: 'flex' }}>
+    <StyledColumn style={{ width: '40%' }}>
       <a href={item.url}>{item.title}</a>
     </StyledColumn>
-    <StyledColumn width="30%">{item.author}</StyledColumn>
-    <StyledColumn width="10%">{item.num_comments}</StyledColumn>
-    <StyledColumn width="10%">{item.points}</StyledColumn>
-    <StyledColumn width="10%">
+    <StyledColumn style={{ width: '30%' }}>
+      {item.author}
+    </StyledColumn>
+    <StyledColumn style={{ width: '10%' }}>
+      {item.num_comments}
+    </StyledColumn>
+    <StyledColumn style={{ width: '10%' }}>
+      {item.points}
+    </StyledColumn>
+    <StyledColumn style={{ width: '10%' }}>
       <StyledButtonSmall
         type="button"
         onClick={() => onRemoveItem(item)}
