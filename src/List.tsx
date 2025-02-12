@@ -61,6 +61,11 @@ const StyledButtonSmall = styled(StyledButton)`
   padding: 5px;
 `;
 
+const StyledSortButton = styled(StyledButton)`
+  background-color: ${(props) =>
+    props.isActive ? '#ff875c' : 'inherit'};
+`;
+
 const SORTS = {
   NONE: (list) => list,
   TITLE: (list) => sortBy(list, 'title'),
@@ -88,24 +93,36 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
     <ul>
       <StyledHeader>
         <StyledHeaderColumn width="40%">
-          <button type="button" onClick={() => handleSort('TITLE')}>
+          <StyledSortButton
+            isActive={sort === 'TITLE'}
+            onClick={() => handleSort('TITLE')}
+          >
             Title
-          </button>
+          </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="30%">
-          <button type="button" onClick={() => handleSort('AUTHOR')}>
+          <StyledSortButton
+            isActive={sort === 'AUTHOR'}
+            onClick={() => handleSort('AUTHOR')}
+          >
             Author
-          </button>
+          </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">
-          <button type="button" onClick={() => handleSort('COMMENT')}>
+          <StyledSortButton
+            isActive={sort === 'COMMENTS'}
+            onClick={() => handleSort('COMMENTS')}
+          >
             Comments
-          </button>
+          </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">
-          <button type="button" onClick={() => handleSort('POINT')}>
+          <StyledSortButton
+            isActive={sort === 'POINTS'}
+            onClick={() => handleSort('POINTS')}
+          >
             Points
-          </button>
+          </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">Actions</StyledHeaderColumn>
       </StyledHeader>
