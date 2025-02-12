@@ -183,13 +183,17 @@ describe('List', () => {
       <List list={[storyOne]} onRemoveItem={handleRemoveItem} />
     );
 
-    expect(screen.getByRole('button')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Dismiss' })
+    ).toBeInTheDocument();
   });
 
   it('calls onRemove when the button is clicked', () => {
     render(<List list={stories} onRemoveItem={handleRemoveItem} />);
 
-    const removeButtons = screen.getAllByRole('button');
+    const removeButtons = screen.getAllByRole('button', {
+      name: 'Dismiss',
+    });
 
     fireEvent.click(removeButtons[0]);
 

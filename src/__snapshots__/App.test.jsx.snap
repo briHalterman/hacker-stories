@@ -53,25 +53,41 @@ exports[`App > renders snapshot 1`] = `
         class="sc-gaZyOd hA-DaVc"
         width="40%"
       >
-        Title
+        <button
+          type="button"
+        >
+          Title
+        </button>
       </span>
       <span
         class="sc-gaZyOd jKrUdn"
         width="30%"
       >
-        Author
+        <button
+          type="button"
+        >
+          Author
+        </button>
       </span>
       <span
         class="sc-gaZyOd ggsWWl"
         width="10%"
       >
-        Comments
+        <button
+          type="button"
+        >
+          Comments
+        </button>
       </span>
       <span
         class="sc-gaZyOd ggsWWl"
         width="10%"
       >
-        Points
+        <button
+          type="button"
+        >
+          Points
+        </button>
       </span>
       <span
         class="sc-gaZyOd ggsWWl"
@@ -220,25 +236,41 @@ exports[`List > renders snapshot 1`] = `
       class="sc-gaZyOd hA-DaVc"
       width="40%"
     >
-      Title
+      <button
+        type="button"
+      >
+        Title
+      </button>
     </span>
     <span
       class="sc-gaZyOd jKrUdn"
       width="30%"
     >
-      Author
+      <button
+        type="button"
+      >
+        Author
+      </button>
     </span>
     <span
       class="sc-gaZyOd ggsWWl"
       width="10%"
     >
-      Comments
+      <button
+        type="button"
+      >
+        Comments
+      </button>
     </span>
     <span
       class="sc-gaZyOd ggsWWl"
       width="10%"
     >
-      Points
+      <button
+        type="button"
+      >
+        Points
+      </button>
     </span>
     <span
       class="sc-gaZyOd ggsWWl"
