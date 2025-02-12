@@ -14,6 +14,7 @@ import {
   screen,
   fireEvent,
   waitFor,
+  within,
 } from '@testing-library/react';
 
 import App, {
@@ -201,6 +202,41 @@ describe('List', () => {
     expect(handleRemoveItem).toHaveBeenCalledWith(storyOne);
   });
 
+  it('sorts by title', () => {
+    render(<List list={stories} />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Title' }));
+
+    const items = screen.getAllByRole('listitem');
+
+    expect(items[0]).toHaveTextContent('React');
+    expect(items[1]).toHaveTextContent('Redux');
+  });
+
+  it('sorts by author', () => {
+    render(<List list={stories} />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Author' }));
+
+    const items = screen.getAllByRole('listitem');
+
+    expect(items[0]).toHaveTextContent('Abramov');
+    expect(items[1]).toHaveTextContent('Walke');
+  });
+
+  it('sorts by comments in descending order');
+
+  it('sorts by points in descending order', () => {
+    render(<List list={stories} />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Points' }));
+
+    const items = screen.getAllByRole('listitem');
+
+    expect(within(items[0]).getByText('5')).toBeInTheDocument();
+    expect(within(items[1]).getByText('4')).toBeInTheDocument();
+  });
+
   it('renders snapshot', () => {
     const { container } = render(
       <List list={stories} onRemoveItem={() => {}} />
@@ -296,7 +332,7 @@ describe('App', () => {
   });
 
   it('fails fetching data', async () => {
-    const promise = Promise.reject();
+    const promise = Promise.reject().catch(() => {});
 
     axios.get.mockImplementationOnce(() => promise);
 
@@ -304,12 +340,10 @@ describe('App', () => {
 
     expect(screen.getByText(/Loading/)).toBeInTheDocument();
 
-    try {
-      await waitFor(async () => await promise);
-    } catch (error) {
+    await waitFor(() => {
       expect(screen.queryByText(/Loading/)).toBeNull();
       expect(screen.queryByText(/went wrong/)).toBeInTheDocument();
-    }
+    });
   });
 
   it('removes a story', async () => {

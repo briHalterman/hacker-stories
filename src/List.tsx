@@ -89,8 +89,8 @@ const SORTS: Record<string, SortFunction> = {
   NONE: (list) => list,
   TITLE: (list) => sortBy(list, 'title'),
   AUTHOR: (list) => sortBy(list, 'author'),
-  COMMENT: (list) => sortBy(list, 'num_comments').reverse(),
-  POINT: (list) => sortBy(list, 'points').reverse(),
+  COMMENTS: (list) => sortBy(list, 'num_comments').reverse(),
+  POINTS: (list) => sortBy(list, 'points').reverse(),
 };
 
 type ListProps = {
@@ -105,7 +105,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
     setSort(sortKey);
   };
 
-  const sortFunction = SORTS[sort];
+  const sortFunction = SORTS[sort] || SORTS.NONE;
   const sortedList = sortFunction(list);
 
   return (
