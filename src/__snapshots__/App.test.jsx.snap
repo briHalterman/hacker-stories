@@ -54,9 +54,9 @@ exports[`App > renders snapshot 1`] = `
         width="40%"
       >
         <button
-          class="sc-dDvxFM sc-gTrWKq ga-Dddz inqydb"
+          class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
         >
-          Title
+          Title 
         </button>
       </span>
       <span
@@ -64,7 +64,7 @@ exports[`App > renders snapshot 1`] = `
         width="30%"
       >
         <button
-          class="sc-dDvxFM sc-gTrWKq ga-Dddz inqydb"
+          class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
         >
           Author
         </button>
@@ -74,7 +74,7 @@ exports[`App > renders snapshot 1`] = `
         width="10%"
       >
         <button
-          class="sc-dDvxFM sc-gTrWKq ga-Dddz inqydb"
+          class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
         >
           Comments
         </button>
@@ -84,7 +84,7 @@ exports[`App > renders snapshot 1`] = `
         width="10%"
       >
         <button
-          class="sc-dDvxFM sc-gTrWKq ga-Dddz inqydb"
+          class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
         >
           Points
         </button>
@@ -237,9 +237,9 @@ exports[`List > renders snapshot 1`] = `
       width="40%"
     >
       <button
-        class="sc-dDvxFM sc-gTrWKq ga-Dddz inqydb"
+        class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
       >
-        Title
+        Title 
       </button>
     </span>
     <span
@@ -247,7 +247,7 @@ exports[`List > renders snapshot 1`] = `
       width="30%"
     >
       <button
-        class="sc-dDvxFM sc-gTrWKq ga-Dddz inqydb"
+        class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
       >
         Author
       </button>
@@ -257,7 +257,7 @@ exports[`List > renders snapshot 1`] = `
       width="10%"
     >
       <button
-        class="sc-dDvxFM sc-gTrWKq ga-Dddz inqydb"
+        class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
       >
         Comments
       </button>
@@ -267,7 +267,7 @@ exports[`List > renders snapshot 1`] = `
       width="10%"
     >
       <button
-        class="sc-dDvxFM sc-gTrWKq ga-Dddz inqydb"
+        class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
       >
         Points
       </button>

@@ -2,6 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { sortBy } from 'lodash';
+import UpArrow from './assets/up-arrow.svg';
+import DownArrow from './assets/down-arrow.svg';
 
 type Story = {
   objectID: string;
@@ -72,6 +74,10 @@ const StyledButtonSmall = styled(StyledButton)`
 const StyledSortButton = styled(StyledButton)<{ $isActive: boolean }>`
   background-color: ${(props) =>
     props.$isActive ? '#ff875c' : 'inherit'};
+  font-weight: ${(props) => (props.$isActive ? 'bold' : 'normal')};
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;
 
 interface ItemType {
@@ -93,6 +99,16 @@ const SORTS: Record<string, SortFunction> = {
   POINTS: (list) => sortBy(list, 'points').reverse(),
 };
 
+const getSortIcon = (
+  sort: { sortKey: string; isReverse: boolean },
+  sortKey: string
+) => {
+  if (sort.sortKey === sortKey) {
+    return <img src={sort.isReverse ? DownArrow : UpArrow} />;
+  }
+  return null;
+};
+
 type ListProps = {
   list: Stories;
   onRemoveItem: (item: Story) => void;
@@ -110,7 +126,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
   };
 
   const sortFunction = SORTS[sort.sortKey] || SORTS.NONE;
-  
+
   const sortedList = sort.isReverse
     ? sortFunction(list).reverse()
     : sortFunction(list);
@@ -123,7 +139,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
             $isActive={sort.sortKey === 'TITLE'}
             onClick={() => handleSort('TITLE')}
           >
-            Title
+            Title {getSortIcon(sort, 'TITLE')}
           </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="30%">
