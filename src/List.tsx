@@ -110,6 +110,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
   };
 
   const sortFunction = SORTS[sort.sortKey] || SORTS.NONE;
+  
   const sortedList = sort.isReverse
     ? sortFunction(list).reverse()
     : sortFunction(list);
@@ -119,7 +120,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
       <StyledHeader>
         <StyledHeaderColumn width="40%">
           <StyledSortButton
-            $isActive={sort === 'TITLE'}
+            $isActive={sort.sortKey === 'TITLE'}
             onClick={() => handleSort('TITLE')}
           >
             Title
@@ -127,7 +128,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
         </StyledHeaderColumn>
         <StyledHeaderColumn width="30%">
           <StyledSortButton
-            $isActive={sort === 'AUTHOR'}
+            $isActive={sort.sortKey === 'AUTHOR'}
             onClick={() => handleSort('AUTHOR')}
           >
             Author
@@ -135,7 +136,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">
           <StyledSortButton
-            $isActive={sort === 'COMMENTS'}
+            $isActive={sort.sortKey === 'COMMENTS'}
             onClick={() => handleSort('COMMENTS')}
           >
             Comments
@@ -143,7 +144,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">
           <StyledSortButton
-            $isActive={sort === 'POINTS'}
+            $isActive={sort.sortKey === 'POINTS'}
             onClick={() => handleSort('POINTS')}
           >
             Points
