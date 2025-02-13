@@ -2,10 +2,10 @@
 
 exports[`App > renders snapshot 1`] = `
 <div
-  class="sc-cZztgT hgoiFR"
+  class="sc-jMLmsk cxLMdr"
 >
   <h1
-    class="sc-jMLmsk iDnGXR"
+    class="sc-cMHOsR gxjCor"
   >
     <svg
       fill="currentColor"
@@ -23,23 +23,23 @@ exports[`App > renders snapshot 1`] = `
     My Hacker Stories
   </h1>
   <form
-    class="sc-jZCRgm eiviyY"
+    class="sc-cZztgT gywJLP"
   >
     <label
-      class="sc-kuACkN ieQhBk"
+      class="sc-hWWBcw gPqGSH"
       for="search"
     >
       Search:
     </label>
      
     <input
-      class="sc-hWWBcw iKNhci"
+      class="sc-jHbxoU ewemwe"
       id="search"
       type="text"
       value="JavaScript"
     />
     <button
-      class="sc-jHbxoU sc-cGXZpB diwFiY kCZaxR"
+      class="sc-cGXZpB sc-jZCRgm dGHqHG ikJyLe"
       type="submit"
     >
       Submit
@@ -66,7 +66,7 @@ exports[`App > renders snapshot 1`] = `
         <button
           class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
         >
-          Author
+          Author 
         </button>
       </span>
       <span
@@ -76,7 +76,7 @@ exports[`App > renders snapshot 1`] = `
         <button
           class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
         >
-          Comments
+          Comments 
         </button>
       </span>
       <span
@@ -86,7 +86,7 @@ exports[`App > renders snapshot 1`] = `
         <button
           class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
         >
-          Points
+          Points 
         </button>
       </span>
       <span
@@ -220,7 +220,7 @@ exports[`App > renders snapshot 1`] = `
 
 exports[`InputWithLabel > renders snapshot 1`] = `
 <label
-  class="sc-kuACkN ieQhBk"
+  class="sc-hWWBcw gPqGSH"
   for="search"
 >
   Search
@@ -249,7 +249,7 @@ exports[`List > renders snapshot 1`] = `
       <button
         class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
       >
-        Author
+        Author 
       </button>
     </span>
     <span
@@ -259,7 +259,7 @@ exports[`List > renders snapshot 1`] = `
       <button
         class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
       >
-        Comments
+        Comments 
       </button>
     </span>
     <span
@@ -269,7 +269,7 @@ exports[`List > renders snapshot 1`] = `
       <button
         class="sc-dDvxFM sc-gTrWKq ga-Dddz hpxlC"
       >
-        Points
+        Points 
       </button>
     </span>
     <span
@@ -402,23 +402,23 @@ exports[`List > renders snapshot 1`] = `
 
 exports[`SearchForm > renders snapshot 1`] = `
 <form
-  class="sc-jZCRgm eiviyY"
+  class="sc-cZztgT gywJLP"
 >
   <label
-    class="sc-kuACkN ieQhBk"
+    class="sc-hWWBcw gPqGSH"
     for="search"
   >
     Search:
   </label>
    
   <input
-    class="sc-hWWBcw iKNhci"
+    class="sc-jHbxoU ewemwe"
     id="search"
     type="text"
     value="React"
   />
   <button
-    class="sc-jHbxoU sc-cGXZpB diwFiY kCZaxR"
+    class="sc-cGXZpB sc-jZCRgm dGHqHG ikJyLe"
     type="submit"
   >
     Submit
