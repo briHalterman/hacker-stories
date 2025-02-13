@@ -45,6 +45,11 @@ exports[`App > renders snapshot 1`] = `
       Submit
     </button>
   </form>
+  <button
+    type="button"
+  >
+    https://hn.algolia.com/api/v1/search?query=JavaScript
+  </button>
   <ul>
     <div
       class="sc-eaUbBy dvkHrQ"

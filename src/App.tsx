@@ -5,7 +5,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 // import styles from './App.module.css';
 import { List } from './List';
 import { InputWithLabel } from './InputWithLabel';
-import { SearchForm } from './SearchForm'
+import { SearchForm } from './SearchForm';
 
 import { FaHackerNews } from 'react-icons/fa';
 // import { AiOutlineCheck } from 'react-icons/ai';
@@ -110,6 +110,8 @@ const useStorageState = (
 // API_ENDPOINT used to fetch popular tech stories for a certain query
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
 
+const getLastSearches = (urls: string[]) => urls.slice(-5);
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -155,9 +157,9 @@ const App = () => {
     'React'
   );
 
-  const [url, setUrl] = React.useState(
-    `${API_ENDPOINT}${searchTerm}`
-  );
+  const [urls, setUrls] = React.useState([
+    `${API_ENDPOINT}${searchTerm}`,
+  ]);
 
   const [stories, dispatchStories] = React.useReducer(
     storiesReducer,
@@ -172,7 +174,8 @@ const App = () => {
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
     try {
-      const result = await axios.get(url);
+      const lastUrl = urls[urls.length - 1];
+      const result = await axios.get(lastUrl);
 
       dispatchStories({
         type: 'STORIES_FETCH_SUCCESS',
@@ -181,7 +184,7 @@ const App = () => {
     } catch {
       dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
     }
-  }, [url]);
+  }, [urls]);
 
   React.useEffect(() => {
     handleFetchStories(); // Invoke handleFetchStories function in useEffect Hook
@@ -203,10 +206,17 @@ const App = () => {
   const handleSearchSubmit = (
     event: React.FormEvent<HTMLFormElement>
   ) => {
-    setUrl(`${API_ENDPOINT}${searchTerm}`);
+    const url = `${API_ENDPOINT}${searchTerm}`;
+    setUrls(urls.concat(url));
 
     event.preventDefault();
   };
+
+  const handleLastSearch = (url) => {
+    // do something
+  };
+
+  const lastSearches = getLastSearches(urls);
 
   return (
     <>
@@ -225,7 +235,15 @@ const App = () => {
           // className="button_large"
         />
 
-        {/* <hr /> */}
+        {lastSearches.map((url) => (
+          <button
+            key={url}
+            type="button"
+            onClick={() => handleLastSearch(url)}
+          >
+            {url}
+          </button>
+        ))}
 
         {stories.isError && <p>Something went wrong ...</p>}
 
