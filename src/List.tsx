@@ -110,7 +110,10 @@ const getSortIcon = (
 ) => {
   if (sort.sortKey === sortKey) {
     return (
-      <StyledSortIcon src={sort.isReverse ? UpArrow : DownArrow} />
+      <StyledSortIcon
+        src={sort.isReverse ? UpArrow : DownArrow}
+        alt={sort.isReverse ? 'Descending' : 'Ascending'}
+      />
     );
   }
   return null;

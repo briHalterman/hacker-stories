@@ -237,6 +237,46 @@ describe('List', () => {
     expect(within(items[1]).getByText('4')).toBeInTheDocument();
   });
 
+  it('toggles sort order when clicking the same column twice', () => {
+    render(<List list={stories} />);
+
+    const sortButton = screen.getByRole('button', { name: 'Points' });
+
+    fireEvent.click(sortButton);
+    let items = screen.getAllByRole('listitem');
+
+    expect(within(items[0]).getByText('5')).toBeInTheDocument();
+    expect(within(items[1]).getByText('4')).toBeInTheDocument();
+
+    fireEvent.click(sortButton);
+    items = screen.getAllByRole('listitem');
+
+    expect(within(items[0]).getByText('4')).toBeInTheDocument();
+    expect(within(items[1]).getByText('5')).toBeInTheDocument();
+  });
+
+  it('highlights the active sort button', () => {
+    render(<List list={stories} />);
+
+    const titleButton = screen.getByRole('button', { name: 'Title' });
+
+    fireEvent.click(titleButton);
+
+    expect(titleButton).toHaveStyle('background-color: #ff875c');
+  });
+
+  it('shows the correct sorting arrow', () => {
+    render(<List list={stories} />);
+
+    const titleButton = screen.getByRole('button', { name: 'Title' });
+
+    fireEvent.click(titleButton);
+    expect(screen.getByAltText('Ascending')).toBeInTheDocument();
+
+    fireEvent.click(titleButton);
+    expect(screen.getByAltText('Descending')).toBeInTheDocument();
+  });
+
   it('renders snapshot', () => {
     const { container } = render(
       <List list={stories} onRemoveItem={() => {}} />
