@@ -2,6 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { sortBy } from 'lodash';
+import UpArrow from './assets/up-arrow.svg';
+import DownArrow from './assets/down-arrow.svg';
 
 type Story = {
   objectID: string;
@@ -72,6 +74,15 @@ const StyledButtonSmall = styled(StyledButton)`
 const StyledSortButton = styled(StyledButton)<{ $isActive: boolean }>`
   background-color: ${(props) =>
     props.$isActive ? '#ff875c' : 'inherit'};
+  font-weight: ${(props) => (props.$isActive ? 'bold' : 'normal')};
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
+const StyledSortIcon = styled.img`
+  width: 12px;
+  height: 12px;
 `;
 
 interface ItemType {
@@ -87,10 +98,25 @@ type SortFunction = (list: ItemType[]) => ItemType[];
 
 const SORTS: Record<string, SortFunction> = {
   NONE: (list) => list,
-  TITLE: (list) => sortBy(list, 'title'),
-  AUTHOR: (list) => sortBy(list, 'author'),
+  TITLE: (list) => sortBy(list, (item) => item.title.toLowerCase()),
+  AUTHOR: (list) => sortBy(list, (item) => item.author.toLowerCase()),
   COMMENTS: (list) => sortBy(list, 'num_comments').reverse(),
   POINTS: (list) => sortBy(list, 'points').reverse(),
+};
+
+const getSortIcon = (
+  sort: { sortKey: string; isReverse: boolean },
+  sortKey: string
+) => {
+  if (sort.sortKey === sortKey) {
+    return (
+      <StyledSortIcon
+        src={sort.isReverse ? UpArrow : DownArrow}
+        alt={sort.isReverse ? 'Descending' : 'Ascending'}
+      />
+    );
+  }
+  return null;
 };
 
 type ListProps = {
@@ -99,48 +125,55 @@ type ListProps = {
 };
 
 const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
-  const [sort, setSort] = React.useState('NONE');
+  const [sort, setSort] = React.useState({
+    sortKey: 'NONE',
+    isReverse: false,
+  });
 
   const handleSort = (sortKey: string) => {
-    setSort(sortKey);
+    const isReverse = sort.sortKey === sortKey && !sort.isReverse;
+    setSort({ sortKey: sortKey, isReverse: isReverse });
   };
 
-  const sortFunction = SORTS[sort] || SORTS.NONE;
-  const sortedList = sortFunction(list);
+  const sortFunction = SORTS[sort.sortKey] || SORTS.NONE;
+
+  const sortedList = sort.isReverse
+    ? sortFunction(list).reverse()
+    : sortFunction(list);
 
   return (
     <ul>
       <StyledHeader>
         <StyledHeaderColumn width="40%">
           <StyledSortButton
-            $isActive={sort === 'TITLE'}
+            $isActive={sort.sortKey === 'TITLE'}
             onClick={() => handleSort('TITLE')}
           >
-            Title
+            Title {getSortIcon(sort, 'TITLE')}
           </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="30%">
           <StyledSortButton
-            $isActive={sort === 'AUTHOR'}
+            $isActive={sort.sortKey === 'AUTHOR'}
             onClick={() => handleSort('AUTHOR')}
           >
-            Author
+            Author {getSortIcon(sort, 'AUTHOR')}
           </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">
           <StyledSortButton
-            $isActive={sort === 'COMMENTS'}
+            $isActive={sort.sortKey === 'COMMENTS'}
             onClick={() => handleSort('COMMENTS')}
           >
-            Comments
+            Comments {getSortIcon(sort, 'COMMENTS')}
           </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">
           <StyledSortButton
-            $isActive={sort === 'POINTS'}
+            $isActive={sort.sortKey === 'POINTS'}
             onClick={() => handleSort('POINTS')}
           >
-            Points
+            Points {getSortIcon(sort, 'POINTS')}
           </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">Actions</StyledHeaderColumn>
