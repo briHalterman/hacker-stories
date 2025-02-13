@@ -80,6 +80,11 @@ const StyledSortButton = styled(StyledButton)<{ $isActive: boolean }>`
   gap: 5px;
 `;
 
+const StyledSortIcon = styled.img`
+  width: 12px;
+  height: 12px;
+`;
+
 interface ItemType {
   objectID: string;
   title: string;
@@ -93,8 +98,8 @@ type SortFunction = (list: ItemType[]) => ItemType[];
 
 const SORTS: Record<string, SortFunction> = {
   NONE: (list) => list,
-  TITLE: (list) => sortBy(list, 'title'),
-  AUTHOR: (list) => sortBy(list, 'author'),
+  TITLE: (list) => sortBy(list, (item) => item.title.toLowerCase()),
+  AUTHOR: (list) => sortBy(list, (item) => item.author.toLowerCase()),
   COMMENTS: (list) => sortBy(list, 'num_comments').reverse(),
   POINTS: (list) => sortBy(list, 'points').reverse(),
 };
@@ -104,7 +109,9 @@ const getSortIcon = (
   sortKey: string
 ) => {
   if (sort.sortKey === sortKey) {
-    return <img src={sort.isReverse ? DownArrow : UpArrow} />;
+    return (
+      <StyledSortIcon src={sort.isReverse ? UpArrow : DownArrow} />
+    );
   }
   return null;
 };
@@ -147,7 +154,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
             $isActive={sort.sortKey === 'AUTHOR'}
             onClick={() => handleSort('AUTHOR')}
           >
-            Author
+            Author {getSortIcon(sort, 'AUTHOR')}
           </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">
@@ -155,7 +162,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
             $isActive={sort.sortKey === 'COMMENTS'}
             onClick={() => handleSort('COMMENTS')}
           >
-            Comments
+            Comments {getSortIcon(sort, 'COMMENTS')}
           </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">
@@ -163,7 +170,7 @@ const List: React.FC<ListProps> = ({ list, onRemoveItem }) => {
             $isActive={sort.sortKey === 'POINTS'}
             onClick={() => handleSort('POINTS')}
           >
-            Points
+            Points {getSortIcon(sort, 'POINTS')}
           </StyledSortButton>
         </StyledHeaderColumn>
         <StyledHeaderColumn width="10%">Actions</StyledHeaderColumn>
