@@ -110,9 +110,10 @@ const useStorageState = (
 // API_ENDPOINT used to fetch popular tech stories for a certain query
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
 
-const extractSearchTerm = (url) => url.replace(API_ENDPOINT, '');
+const extractSearchTerm = (url: string) =>
+  url.replace(API_ENDPOINT, '');
 
-const getLastSearches = (urls) =>
+const getLastSearches = (urls: string[]): string[] =>
   urls
     .reduce((result, url, index) => {
       const searchTerm = extractSearchTerm(url);
@@ -128,11 +129,12 @@ const getLastSearches = (urls) =>
       } else {
         return result.concat(searchTerm);
       }
-    }, [])
+    }, [] as string[])
     .slice(-6)
     .slice(0, -1);
 
-const getUrl = (searchTerm) => `${API_ENDPOINT}${searchTerm}`;
+const getUrl = (searchTerm: string): string =>
+  searchTerm ? `${API_ENDPOINT}${searchTerm}` : '';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -179,8 +181,14 @@ const App = () => {
     'React'
   );
 
+  const intitialUrls: string[] = getUrl(searchTerm)
+    ? [getUrl(searchTerm)]
+    : [];
+
   // important: still wraps the returned value in []
-  const [urls, setUrls] = React.useState([getUrl(searchTerm)]);
+  const [urls, setUrls] = React.useState<string[]>(() =>
+    getUrl(searchTerm) ? [getUrl(searchTerm)] : ([] as string[])
+  );
 
   const [stories, dispatchStories] = React.useReducer(
     storiesReducer,
@@ -224,7 +232,7 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearch = (searchTerm) => {
+  const handleSearch = (searchTerm: string) => {
     const url = getUrl(searchTerm);
     setUrls(urls.concat(url));
   };
@@ -237,7 +245,7 @@ const App = () => {
     event.preventDefault();
   };
 
-  const handleLastSearch = (searchTerm) => {
+  const handleLastSearch = (searchTerm: string) => {
     setSearchTerm(searchTerm);
     handleSearch(searchTerm);
   };
@@ -283,7 +291,15 @@ const App = () => {
   );
 };
 
-const LastSearches = ({ lastSearches, onLastSearch }) => (
+type LastSearchesProps = {
+  lastSearches: string[];
+  onLastSearch: (searchTerm: string) => void;
+};
+
+const LastSearches: React.FC<LastSearchesProps> = ({
+  lastSearches,
+  onLastSearch,
+}) => (
   <>
     {lastSearches.map((searchTerm, index) => (
       <button
