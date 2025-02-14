@@ -7,7 +7,7 @@ import { List } from './List';
 import { InputWithLabel } from './InputWithLabel';
 import { SearchForm } from './SearchForm';
 
-import { FaHackerNews } from 'react-icons/fa';
+import { IoCodeSlashSharp } from 'react-icons/io5';
 // import { AiOutlineCheck } from 'react-icons/ai';
 
 type Story = {
@@ -271,7 +271,7 @@ const App = () => {
 
       <StyledContainer>
         <StyledHeadlinePrimary>
-          <FaHackerNews size="50" />
+          <IoCodeSlashSharp size="50" style={{ margin: '10px' }} />
           My Hacker Stories
         </StyledHeadlinePrimary>
 
