@@ -5,7 +5,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 // import styles from './App.module.css';
 import { List } from './List';
 import { InputWithLabel } from './InputWithLabel';
-import { SearchForm } from './SearchForm'
+import { SearchForm } from './SearchForm';
 
 import { FaHackerNews } from 'react-icons/fa';
 // import { AiOutlineCheck } from 'react-icons/ai';
@@ -110,6 +110,32 @@ const useStorageState = (
 // API_ENDPOINT used to fetch popular tech stories for a certain query
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
 
+const extractSearchTerm = (url: string) =>
+  url.replace(API_ENDPOINT, '');
+
+const getLastSearches = (urls: string[]): string[] =>
+  urls
+    .reduce((result, url, index) => {
+      const searchTerm = extractSearchTerm(url);
+
+      if (index === 0) {
+        return result.concat(searchTerm);
+      }
+
+      const previousSearchTerm = result[result.length - 1];
+
+      if (searchTerm === previousSearchTerm) {
+        return result;
+      } else {
+        return result.concat(searchTerm);
+      }
+    }, [] as string[])
+    .slice(-6)
+    .slice(0, -1);
+
+const getUrl = (searchTerm: string): string =>
+  searchTerm ? `${API_ENDPOINT}${searchTerm}` : '';
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -149,14 +175,32 @@ const StyledButton = styled.button`
   }
 `;
 
+const StyledSearchButton = styled.button`
+  margin: 0 5px 0 5px;
+  padding: 5px;
+  background: transparent;
+  border: 1px solid #171212;
+  cursor: pointer;
+
+  &:hover {
+    background: #171212;
+    color: #ffffff;
+  }
+`;
+
 const App = () => {
   const [searchTerm, setSearchTerm] = useStorageState(
     'search',
     'React'
   );
 
-  const [url, setUrl] = React.useState(
-    `${API_ENDPOINT}${searchTerm}`
+  const intitialUrls: string[] = getUrl(searchTerm)
+    ? [getUrl(searchTerm)]
+    : [];
+
+  // important: still wraps the returned value in []
+  const [urls, setUrls] = React.useState<string[]>(() =>
+    getUrl(searchTerm) ? [getUrl(searchTerm)] : ([] as string[])
   );
 
   const [stories, dispatchStories] = React.useReducer(
@@ -172,7 +216,8 @@ const App = () => {
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
     try {
-      const result = await axios.get(url);
+      const lastUrl = urls[urls.length - 1];
+      const result = await axios.get(lastUrl);
 
       dispatchStories({
         type: 'STORIES_FETCH_SUCCESS',
@@ -181,7 +226,7 @@ const App = () => {
     } catch {
       dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
     }
-  }, [url]);
+  }, [urls]);
 
   React.useEffect(() => {
     handleFetchStories(); // Invoke handleFetchStories function in useEffect Hook
@@ -200,13 +245,25 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
+  const handleSearch = (searchTerm: string) => {
+    const url = getUrl(searchTerm);
+    setUrls(urls.concat(url));
+  };
+
   const handleSearchSubmit = (
     event: React.FormEvent<HTMLFormElement>
   ) => {
-    setUrl(`${API_ENDPOINT}${searchTerm}`);
+    handleSearch(searchTerm);
 
     event.preventDefault();
   };
+
+  const handleLastSearch = (searchTerm: string) => {
+    setSearchTerm(searchTerm);
+    handleSearch(searchTerm);
+  };
+
+  const lastSearches = getLastSearches(urls);
 
   return (
     <>
@@ -225,7 +282,12 @@ const App = () => {
           // className="button_large"
         />
 
-        {/* <hr /> */}
+        <LastSearches
+          lastSearches={lastSearches}
+          onLastSearch={handleLastSearch}
+        />
+
+        <hr />
 
         {stories.isError && <p>Something went wrong ...</p>}
 
@@ -241,6 +303,28 @@ const App = () => {
     </>
   );
 };
+
+type LastSearchesProps = {
+  lastSearches: string[];
+  onLastSearch: (searchTerm: string) => void;
+};
+
+const LastSearches: React.FC<LastSearchesProps> = ({
+  lastSearches,
+  onLastSearch,
+}) => (
+  <>
+    {lastSearches.map((searchTerm, index) => (
+      <StyledSearchButton
+        key={searchTerm + index}
+        type="button"
+        onClick={() => onLastSearch(searchTerm)}
+      >
+        {searchTerm}
+      </StyledSearchButton>
+    ))}
+  </>
+);
 
 export default App;
 
