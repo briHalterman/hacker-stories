@@ -48,7 +48,7 @@ exports[`App > renders snapshot 1`] = `
   <button
     type="button"
   >
-    https://hn.algolia.com/api/v1/search?query=JavaScript
+    JavaScript
   </button>
   <ul>
     <div

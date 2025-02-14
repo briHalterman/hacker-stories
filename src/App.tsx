@@ -110,7 +110,12 @@ const useStorageState = (
 // API_ENDPOINT used to fetch popular tech stories for a certain query
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
 
-const getLastSearches = (urls: string[]) => urls.slice(-5);
+const extractSearchTerm = (url) => url.replace(API_ENDPOINT, '');
+
+const getLastSearches = (urls) =>
+  urls.slice(-5).map(extractSearchTerm);
+
+const getUrl = (searchTerm) => `${API_ENDPOINT}${searchTerm}`;
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -157,9 +162,8 @@ const App = () => {
     'React'
   );
 
-  const [urls, setUrls] = React.useState([
-    `${API_ENDPOINT}${searchTerm}`,
-  ]);
+  // important: still wraps the returned value in []
+  const [urls, setUrls] = React.useState([getUrl(searchTerm)]);
 
   const [stories, dispatchStories] = React.useReducer(
     storiesReducer,
@@ -203,17 +207,21 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
+  const handleSearch = (searchTerm) => {
+    const url = getUrl(searchTerm);
+    setUrls(urls.concat(url));
+  };
+
   const handleSearchSubmit = (
     event: React.FormEvent<HTMLFormElement>
   ) => {
-    const url = `${API_ENDPOINT}${searchTerm}`;
-    setUrls(urls.concat(url));
+    handleSearch(searchTerm);
 
     event.preventDefault();
   };
 
-  const handleLastSearch = (url) => {
-    // do something
+  const handleLastSearch = (searchTerm) => {
+    handleSearch(searchTerm);
   };
 
   const lastSearches = getLastSearches(urls);
@@ -235,13 +243,13 @@ const App = () => {
           // className="button_large"
         />
 
-        {lastSearches.map((url) => (
+        {lastSearches.map((searchTerm, index) => (
           <button
-            key={url}
+            key={searchTerm + index}
             type="button"
-            onClick={() => handleLastSearch(url)}
+            onClick={() => handleLastSearch(searchTerm)}
           >
-            {url}
+            {searchTerm}
           </button>
         ))}
 
