@@ -45,11 +45,7 @@ exports[`App > renders snapshot 1`] = `
       Submit
     </button>
   </form>
-  <button
-    type="button"
-  >
-    Node.js
-  </button>
+  <hr />
   <ul>
     <div
       class="sc-eaUbBy dvkHrQ"
