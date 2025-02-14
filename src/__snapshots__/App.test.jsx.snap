@@ -36,7 +36,7 @@ exports[`App > renders snapshot 1`] = `
       class="sc-jHbxoU ewemwe"
       id="search"
       type="text"
-      value="Node.js"
+      value="JavaScript"
     />
     <button
       class="sc-cGXZpB sc-jZCRgm dGHqHG ikJyLe"

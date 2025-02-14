@@ -521,6 +521,11 @@ describe('App', () => {
     fireEvent.change(searchInput, { target: { value: 'Node.js' } });
     fireEvent.submit(searchButton);
 
+    fireEvent.change(searchInput, {
+      target: { value: 'Python' },
+    });
+    fireEvent.submit(searchButton);
+
     const searchHistoryButtons = screen.getAllByRole('button', {
       name: /Redux|JavaScript|TypeScript|Ruby|Node\.js/i,
     });
@@ -531,43 +536,43 @@ describe('App', () => {
     ).toBeNull();
   });
 
-  // it('fetches stories when clicking a search history button', async () => {
-  //   render(<App />);
+  it('fetches stories when clicking a search history button', async () => {
+    render(<App />);
 
-  //   const searchInput = screen.getByRole('textbox', {
-  //     name: 'Search:',
-  //   });
-  //   const searchButton = screen.getByRole('button', {
-  //     name: 'Submit',
-  //   });
+    const searchInput = screen.getByRole('textbox', {
+      name: 'Search:',
+    });
+    const searchButton = screen.getByRole('button', {
+      name: 'Submit',
+    });
 
-  //   fireEvent.change(searchInput, {
-  //     target: { value: 'JavaScript' },
-  //   });
-  //   fireEvent.submit(searchButton);
+    fireEvent.change(searchInput, {
+      target: { value: 'JavaScript' },
+    });
+    fireEvent.submit(searchButton);
 
-  //   fireEvent.change(searchInput, {
-  //     target: { value: 'JavaScript' },
-  //   });
-  //   fireEvent.submit(searchButton);
+    fireEvent.change(searchInput, {
+      target: { value: 'JavaScript' },
+    });
+    fireEvent.submit(searchButton);
 
-  //   fireEvent.change(searchInput, { target: { value: 'React' } });
-  //   fireEvent.submit(searchButton);
+    fireEvent.change(searchInput, { target: { value: 'React' } });
+    fireEvent.submit(searchButton);
 
-  //   const promise = Promise.resolve({
-  //     data: { hits: [{ title: 'JavaScript Guide', objectID: '1' }] },
-  //   });
-  //   axios.get.mockImplementationOnce(() => promise);
+    const promise = Promise.resolve({
+      data: { hits: [{ title: 'JavaScript Guide', objectID: '1' }] },
+    });
+    axios.get.mockImplementationOnce(() => promise);
 
-  //   const historyButton = screen.getByRole('button', {
-  //     name: /javascript/i,
-  //   });
-  //   fireEvent.click(historyButton);
+    const historyButton = screen.getByRole('button', {
+      name: /javascript/i,
+    });
+    fireEvent.click(historyButton);
 
-  //   await waitFor(() =>
-  //     expect(screen.getByText('JavaScriptGuide')).toBeInTheDocument()
-  //   );
-  // });
+    await waitFor(() =>
+      expect(screen.getByText('JavaScript Guide')).toBeInTheDocument()
+    );
+  });
 
   it('renders snapshot', async () => {
     const promise = Promise.resolve({
