@@ -362,12 +362,16 @@ describe('App', () => {
 
     expect(screen.queryByText(/Loading/)).toBeInTheDocument();
 
-    await waitFor(async () => await promise);
+    await waitFor(() =>
+      expect(screen.queryByText(/Loading/)).toBeNull()
+    );
 
-    expect(screen.queryByText(/Loading/)).toBeNull();
+    const list = screen.getByRole('list');
 
-    expect(screen.getByText('React')).toBeInTheDocument();
-    expect(screen.getByText('Redux')).toBeInTheDocument();
+    expect(within(list).getByText('React')).toBeInTheDocument();
+    // expect(screen.getByText('Redux')).toBeInTheDocument();
+    expect(within(list).getByText('Redux')).toBeInTheDocument();
+
     expect(screen.getAllByText('Dismiss').length).toBe(2);
   });
 
@@ -384,28 +388,6 @@ describe('App', () => {
       expect(screen.queryByText(/Loading/)).toBeNull();
       expect(screen.queryByText(/went wrong/)).toBeInTheDocument();
     });
-  });
-
-  it('removes a story', async () => {
-    const promise = Promise.resolve({
-      data: {
-        hits: stories,
-      },
-    });
-
-    axios.get.mockImplementationOnce(() => promise);
-
-    render(<App />);
-
-    await waitFor(async () => await promise);
-
-    expect(screen.getAllByText('Dismiss').length).toBe(2);
-    expect(screen.getByText('Jordan Walke')).toBeInTheDocument();
-
-    fireEvent.click(screen.getAllByText('Dismiss')[0]);
-
-    expect(screen.getAllByText('Dismiss').length).toBe(1);
-    expect(screen.queryByText('Jordan Walke')).toBeNull();
   });
 
   it('searches for specific stories', async () => {
@@ -484,6 +466,108 @@ describe('App', () => {
     ).toBeNull();
     expect(screen.queryByText('Brendan Eich')).toBeInTheDocument();
   });
+
+  it('removes a story', async () => {
+    const promise = Promise.resolve({
+      data: {
+        hits: stories,
+      },
+    });
+
+    axios.get.mockImplementationOnce(() => promise);
+
+    render(<App />);
+
+    await waitFor(async () => await promise);
+
+    expect(screen.getAllByText('Dismiss').length).toBe(2);
+    expect(screen.getByText('Jordan Walke')).toBeInTheDocument();
+
+    fireEvent.click(screen.getAllByText('Dismiss')[0]);
+
+    expect(screen.getAllByText('Dismiss').length).toBe(1);
+    expect(screen.queryByText('Jordan Walke')).toBeNull();
+  });
+
+  it('stores and displays the last five searches', async () => {
+    render(<App />);
+
+    const searchInput = screen.getByRole('textbox', {
+      name: 'Search:',
+    });
+    const searchButton = screen.getByRole('button', {
+      name: 'Submit',
+    });
+
+    fireEvent.change(searchInput, { target: { value: 'React' } });
+    fireEvent.submit(searchButton);
+
+    fireEvent.change(searchInput, { target: { value: 'Redux' } });
+    fireEvent.submit(searchButton);
+
+    fireEvent.change(searchInput, {
+      target: { value: 'JavaScript' },
+    });
+    fireEvent.submit(searchButton);
+
+    fireEvent.change(searchInput, {
+      target: { value: 'TypeScript' },
+    });
+    fireEvent.submit(searchButton);
+
+    fireEvent.change(searchInput, { target: { value: 'Ruby' } });
+    fireEvent.submit(searchButton);
+
+    fireEvent.change(searchInput, { target: { value: 'Node.js' } });
+    fireEvent.submit(searchButton);
+
+    const searchHistoryButtons = screen.getAllByRole('button', {
+      name: /Redux|JavaScript|TypeScript|Ruby|Node\.js/i,
+    });
+
+    expect(searchHistoryButtons).toHaveLength(5);
+    expect(
+      screen.queryByRole('button', { name: 'React' })
+    ).toBeNull();
+  });
+
+  // it('fetches stories when clicking a search history button', async () => {
+  //   render(<App />);
+
+  //   const searchInput = screen.getByRole('textbox', {
+  //     name: 'Search:',
+  //   });
+  //   const searchButton = screen.getByRole('button', {
+  //     name: 'Submit',
+  //   });
+
+  //   fireEvent.change(searchInput, {
+  //     target: { value: 'JavaScript' },
+  //   });
+  //   fireEvent.submit(searchButton);
+
+  //   fireEvent.change(searchInput, {
+  //     target: { value: 'JavaScript' },
+  //   });
+  //   fireEvent.submit(searchButton);
+
+  //   fireEvent.change(searchInput, { target: { value: 'React' } });
+  //   fireEvent.submit(searchButton);
+
+  //   const promise = Promise.resolve({
+  //     data: { hits: [{ title: 'JavaScript Guide', objectID: '1' }] },
+  //   });
+  //   axios.get.mockImplementationOnce(() => promise);
+
+  //   const historyButton = screen.getByRole('button', {
+  //     name: /javascript/i,
+  //   });
+  //   fireEvent.click(historyButton);
+
+  //   await waitFor(() =>
+  //     expect(screen.getByText('JavaScriptGuide')).toBeInTheDocument()
+  //   );
+  // });
 
   it('renders snapshot', async () => {
     const promise = Promise.resolve({
