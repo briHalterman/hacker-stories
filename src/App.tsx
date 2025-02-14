@@ -175,6 +175,19 @@ const StyledButton = styled.button`
   }
 `;
 
+const StyledSearchButton = styled.button`
+  margin: 0 5px 0 5px;
+  padding: 5px;
+  background: transparent;
+  border: 1px solid #171212;
+  cursor: pointer;
+
+  &:hover {
+    background: #171212;
+    color: #ffffff;
+  }
+`;
+
 const App = () => {
   const [searchTerm, setSearchTerm] = useStorageState(
     'search',
@@ -302,13 +315,13 @@ const LastSearches: React.FC<LastSearchesProps> = ({
 }) => (
   <>
     {lastSearches.map((searchTerm, index) => (
-      <button
+      <StyledSearchButton
         key={searchTerm + index}
         type="button"
         onClick={() => onLastSearch(searchTerm)}
       >
         {searchTerm}
-      </button>
+      </StyledSearchButton>
     ))}
   </>
 );
