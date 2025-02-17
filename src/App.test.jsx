@@ -69,7 +69,10 @@ describe('storiesReducer', () => {
   it('correctly updates application state', () => {
     const action = {
       type: 'STORIES_FETCH_SUCCESS',
-      payload: stories,
+      payload: {
+        list: stories,
+        page: 0,
+      },
     };
     const newState = storiesReducer(initialState, action);
 
@@ -97,6 +100,7 @@ describe('storiesReducer', () => {
       data: [storyTwo],
       isLoading: false,
       isError: false,
+      page: state.page,
     };
 
     expect(newState).toStrictEqual(expectedState);
@@ -572,6 +576,52 @@ describe('App', () => {
     await waitFor(() =>
       expect(screen.getByText('JavaScript Guide')).toBeInTheDocument()
     );
+  });
+
+  it('loads more stories when clicking the "More" button', async () => {
+    const intitialStories = [storyOne, storyTwo];
+
+    const nextPageStories = [
+      {
+        title: 'Node.js',
+        url: 'nodejs.org/en',
+        author: 'Ryan Dahl',
+        num_comments: 10,
+        points: 15,
+        objectID: 3,
+      },
+    ];
+
+    const firstPagePromise = Promise.resolve({
+      data: { hits: intitialStories, page: 0 },
+    });
+
+    const secondPagePromise = Promise.resolve({
+      data: { hits: nextPageStories, page: 1 },
+    });
+
+    axios.get.mockImplementation((url) => {
+      if (url.includes('page=0')) return firstPagePromise;
+      if (url.includes('page=1')) return secondPagePromise;
+      return Promise.reject();
+    });
+
+    render(<App />);
+
+    await waitFor(() =>
+      expect(screen.getByText('React')).toBeInTheDocument()
+    );
+
+    const moreButton = screen.getByRole('button', { name: 'More' });
+    expect(moreButton).toBeInTheDocument();
+
+    fireEvent.click(moreButton);
+
+    await waitFor(() =>
+      expect(screen.getByText('Node.js')).toBeInTheDocument()
+    );
+
+    expect(screen.getByText('Ryan Dahl')).toBeInTheDocument();
   });
 
   it('renders snapshot', async () => {

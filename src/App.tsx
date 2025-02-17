@@ -7,7 +7,7 @@ import { List } from './List';
 import { InputWithLabel } from './InputWithLabel';
 import { SearchForm } from './SearchForm';
 
-import { FaHackerNews } from 'react-icons/fa';
+import { IoCodeSlashSharp } from 'react-icons/io5';
 // import { AiOutlineCheck } from 'react-icons/ai';
 
 type Story = {
@@ -25,6 +25,7 @@ type StoriesState = {
   data: Stories;
   isLoading: boolean;
   isError: boolean;
+  page: number;
 };
 
 type StoriesFetchInitAction = {
@@ -33,7 +34,10 @@ type StoriesFetchInitAction = {
 
 type StoriesFetchSuccessAction = {
   type: 'STORIES_FETCH_SUCCESS';
-  payload: Stories;
+  payload: {
+    list: Stories;
+    page: number;
+  };
 };
 
 type StoriesFetchFailureAction = {
@@ -66,19 +70,22 @@ const storiesReducer = (
         ...state,
         isLoading: true,
         isError: false,
+        page: state.page,
       };
     case STORIES_FETCH_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload,
+        data: action.payload.list,
+        page: action.payload.page,
       };
     case STORIES_FETCH_FAILURE:
       return {
         ...state,
         isLoading: false,
         isError: true,
+        page: state.page,
       };
     case REMOVE_STORY:
       return {
@@ -86,6 +93,7 @@ const storiesReducer = (
         data: state.data.filter(
           (story) => action.payload.objectID !== story.objectID
         ),
+        page: state.page,
       };
     default:
       throw new Error();
@@ -108,12 +116,20 @@ const useStorageState = (
 };
 
 // API_ENDPOINT used to fetch popular tech stories for a certain query
-const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
+const API_BASE = 'https://hn.algolia.com/api/v1';
+const API_SEARCH = '/search';
+const PARAM_SEARCH = 'query=';
+const PARAM_PAGE = 'page=';
 
 const extractSearchTerm = (url: string) =>
-  url.replace(API_ENDPOINT, '');
+  url
+    .substring(url.lastIndexOf('?') + 1, url.lastIndexOf('&'))
+    .replace(PARAM_SEARCH, '');
 
-const getLastSearches = (urls: string[]): string[] =>
+const getLastSearches = (
+  urls: string[],
+  currentSearchTerm: string
+): string[] =>
   urls
     .reduce((result, url, index) => {
       const searchTerm = extractSearchTerm(url);
@@ -131,10 +147,14 @@ const getLastSearches = (urls: string[]): string[] =>
       }
     }, [] as string[])
     .slice(-6)
-    .slice(0, -1);
+    .slice(0, -1)
+    .filter((term) => term !== currentSearchTerm);
 
-const getUrl = (searchTerm: string): string =>
-  searchTerm ? `${API_ENDPOINT}${searchTerm}` : '';
+//  careful: notice the ? in between
+const getUrl = (searchTerm: string, page: number): string =>
+  searchTerm
+    ? `${API_BASE}${API_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`
+    : '';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -188,24 +208,29 @@ const StyledSearchButton = styled.button`
   }
 `;
 
+const StyledMoreButton = styled(StyledButton)`
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
 const App = () => {
   const [searchTerm, setSearchTerm] = useStorageState(
     'search',
     'React'
   );
 
-  const intitialUrls: string[] = getUrl(searchTerm)
-    ? [getUrl(searchTerm)]
+  const intitialUrls: string[] = getUrl(searchTerm, 0)
+    ? [getUrl(searchTerm, 0)]
     : [];
 
-  // important: still wraps the returned value in []
-  const [urls, setUrls] = React.useState<string[]>(() =>
-    getUrl(searchTerm) ? [getUrl(searchTerm)] : ([] as string[])
-  );
+  const [urls, setUrls] = React.useState([getUrl(searchTerm, 0)]);
 
   const [stories, dispatchStories] = React.useReducer(
     storiesReducer,
-    { data: [], isLoading: false, isError: false }
+    { data: [], page: 0, isLoading: false, isError: false }
   );
 
   // Move all data fetching logic from the side-effect into arrow function expression
@@ -213,19 +238,21 @@ const App = () => {
     // wrap function into React's useCallback hook
     //  if `searchTerm is not present do nothing
 
-    dispatchStories({ type: 'STORIES_FETCH_INIT' });
+    dispatchStories({ type: STORIES_FETCH_INIT });
 
     try {
       const lastUrl = urls[urls.length - 1];
-      console.log(urls);
       const result = await axios.get(lastUrl);
 
       dispatchStories({
-        type: 'STORIES_FETCH_SUCCESS',
-        payload: result.data.hits, // Send returned result (different data structure) as payload to component's state reducer
+        type: STORIES_FETCH_SUCCESS,
+        payload: {
+          list: result.data.hits,
+          page: result.data.page,
+        }, // Send returned result (different data structure) as payload to component's state reducer
       });
     } catch {
-      dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
+      dispatchStories({ type: STORIES_FETCH_FAILURE });
     }
   }, [urls]);
 
@@ -246,9 +273,11 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearch = (searchTerm: string) => {
-    const newUrl = getUrl(searchTerm);
-    const newUrls = urls.filter((url) => url !== newUrl).concat(newUrl);
+  const handleSearch = (searchTerm: string, page: number) => {
+    const newUrl = getUrl(searchTerm, page);
+    const newUrls = urls
+      .filter((url) => url !== newUrl)
+      .concat(newUrl);
     setUrls(newUrls);
   };
 
@@ -256,15 +285,21 @@ const App = () => {
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault(); // put before?
-    handleSearch(searchTerm);
+    handleSearch(searchTerm, 0);
   };
 
   const handleLastSearch = (searchTerm: string) => {
     setSearchTerm(searchTerm);
-    handleSearch(searchTerm);
+    handleSearch(searchTerm, 0);
   };
 
   const lastSearches = getLastSearches(urls);
+
+  const handleMore = () => {
+    const lastUrl = urls[urls.length - 1];
+    const searchTerm = extractSearchTerm(lastUrl);
+    handleSearch(searchTerm, stories.page + 1);
+  };
 
   return (
     <>
@@ -272,7 +307,7 @@ const App = () => {
 
       <StyledContainer>
         <StyledHeadlinePrimary>
-          <FaHackerNews size="50" />
+          <IoCodeSlashSharp size="50" style={{ margin: '10px' }} />
           My Hacker Stories
         </StyledHeadlinePrimary>
 
@@ -300,6 +335,10 @@ const App = () => {
             onRemoveItem={handleRemoveStory}
           />
         )}
+
+        <StyledMoreButton type="button" onClick={handleMore}>
+          More
+        </StyledMoreButton>
       </StyledContainer>
     </>
   );
@@ -330,17 +369,3 @@ const LastSearches: React.FC<LastSearchesProps> = ({
 export default App;
 
 export { storiesReducer, SearchForm, InputWithLabel, List };
-
-// input: `react
-// submit urls[], after search is done, check last term
-// how to error handle
-// if network error
-// do you add to history?
-//  []
-
-// input: `redux`
-// submit `urls[]` check last term
-// [react, redux, react]
-
-// form onsubmit
-//
