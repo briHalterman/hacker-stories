@@ -217,6 +217,7 @@ const App = () => {
 
     try {
       const lastUrl = urls[urls.length - 1];
+      console.log(urls);
       const result = await axios.get(lastUrl);
 
       dispatchStories({
@@ -246,16 +247,16 @@ const App = () => {
   };
 
   const handleSearch = (searchTerm: string) => {
-    const url = getUrl(searchTerm);
-    setUrls(urls.concat(url));
+    const newUrl = getUrl(searchTerm);
+    const newUrls = urls.filter((url) => url !== newUrl).concat(newUrl);
+    setUrls(newUrls);
   };
 
   const handleSearchSubmit = (
     event: React.FormEvent<HTMLFormElement>
   ) => {
+    event.preventDefault(); // put before?
     handleSearch(searchTerm);
-
-    event.preventDefault();
   };
 
   const handleLastSearch = (searchTerm: string) => {
@@ -329,3 +330,17 @@ const LastSearches: React.FC<LastSearchesProps> = ({
 export default App;
 
 export { storiesReducer, SearchForm, InputWithLabel, List };
+
+// input: `react
+// submit urls[], after search is done, check last term
+// how to error handle
+// if network error
+// do you add to history?
+//  []
+
+// input: `redux`
+// submit `urls[]` check last term
+// [react, redux, react]
+
+// form onsubmit
+//
