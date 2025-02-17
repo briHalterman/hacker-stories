@@ -204,6 +204,14 @@ const StyledSearchButton = styled.button`
   }
 `;
 
+const StyledMoreButton = styled(StyledButton)`
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
 const App = () => {
   const [searchTerm, setSearchTerm] = useStorageState(
     'search',
@@ -324,9 +332,9 @@ const App = () => {
           />
         )}
 
-        <button type="button" onClick={handleMore}>
+        <StyledMoreButton type="button" onClick={handleMore}>
           More
-        </button>
+        </StyledMoreButton>
       </StyledContainer>
     </>
   );

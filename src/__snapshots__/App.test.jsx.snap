@@ -218,6 +218,7 @@ exports[`App > renders snapshot 1`] = `
     </li>
   </ul>
   <button
+    class="sc-kfmGjC sc-ldgYGE yrYRs kcTVTg"
     type="button"
   >
     More
