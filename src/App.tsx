@@ -72,7 +72,8 @@ const storiesReducer = (
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload,
+        data: action.payload.list,
+        page: action.payload.page,
       };
     case STORIES_FETCH_FAILURE:
       return {
@@ -108,10 +109,15 @@ const useStorageState = (
 };
 
 // API_ENDPOINT used to fetch popular tech stories for a certain query
-const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
+const API_BASE = 'https://hn.algolia.com/api/v1';
+const API_SEARCH = '/search';
+const PARAM_SEARCH = 'query=';
+const PARAM_PAGE = 'page=';
 
 const extractSearchTerm = (url: string) =>
-  url.replace(API_ENDPOINT, '');
+  url
+    .substring(url.lastIndexOf('?') + 1, url.lastIndexOf('&'))
+    .replace(PARAM_SEARCH, '');
 
 const getLastSearches = (urls: string[]): string[] =>
   urls
@@ -133,8 +139,11 @@ const getLastSearches = (urls: string[]): string[] =>
     .slice(-6)
     .slice(0, -1);
 
-const getUrl = (searchTerm: string): string =>
-  searchTerm ? `${API_ENDPOINT}${searchTerm}` : '';
+//  careful: notice the ? in between
+const getUrl = (searchTerm: string, page): string =>
+  searchTerm
+    ? `${API_BASE}${API_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`
+    : '';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -198,14 +207,16 @@ const App = () => {
     ? [getUrl(searchTerm)]
     : [];
 
-  // important: still wraps the returned value in []
-  const [urls, setUrls] = React.useState<string[]>(() =>
-    getUrl(searchTerm) ? [getUrl(searchTerm)] : ([] as string[])
-  );
+  // // important: still wraps the returned value in []
+  // const [urls, setUrls] = React.useState<string[]>(() =>
+  //   getUrl(searchTerm) ? [getUrl(searchTerm)] : ([] as string[])
+  // );
+
+  const [urls, setUrls] = React.useState([getUrl(searchTerm, 0)]);
 
   const [stories, dispatchStories] = React.useReducer(
     storiesReducer,
-    { data: [], isLoading: false, isError: false }
+    { data: [], page: 0, isLoading: false, isError: false }
   );
 
   // Move all data fetching logic from the side-effect into arrow function expression
@@ -213,19 +224,21 @@ const App = () => {
     // wrap function into React's useCallback hook
     //  if `searchTerm is not present do nothing
 
-    dispatchStories({ type: 'STORIES_FETCH_INIT' });
+    dispatchStories({ type: STORIES_FETCH_INIT });
 
     try {
       const lastUrl = urls[urls.length - 1];
-      console.log(urls);
       const result = await axios.get(lastUrl);
 
       dispatchStories({
-        type: 'STORIES_FETCH_SUCCESS',
-        payload: result.data.hits, // Send returned result (different data structure) as payload to component's state reducer
+        type: STORIES_FETCH_SUCCESS,
+        payload: {
+          list: result.data.hits,
+          page: result.data.page,
+        }, // Send returned result (different data structure) as payload to component's state reducer
       });
     } catch {
-      dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
+      dispatchStories({ type: STORIES_FETCH_FAILURE });
     }
   }, [urls]);
 
@@ -246,25 +259,33 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearch = (searchTerm: string) => {
-    const newUrl = getUrl(searchTerm);
-    const newUrls = urls.filter((url) => url !== newUrl).concat(newUrl);
+  const handleSearch = (searchTerm: string, page) => {
+    const newUrl = getUrl(searchTerm, page);
+    const newUrls = urls
+      .filter((url) => url !== newUrl)
+      .concat(newUrl);
     setUrls(newUrls);
   };
 
   const handleSearchSubmit = (
     event: React.FormEvent<HTMLFormElement>
   ) => {
+    handleSearch(searchTerm, 0);
     event.preventDefault(); // put before?
-    handleSearch(searchTerm);
   };
 
   const handleLastSearch = (searchTerm: string) => {
     setSearchTerm(searchTerm);
-    handleSearch(searchTerm);
+    handleSearch(searchTerm, 0);
   };
 
   const lastSearches = getLastSearches(urls);
+
+  const handleMore = () => {
+    const lastUrl = urls[urls.length - 1];
+    const searchTerm = extractSearchTerm(lastUrl);
+    handleSearch(searchTerm, stories.page + 1);
+  };
 
   return (
     <>
@@ -300,6 +321,10 @@ const App = () => {
             onRemoveItem={handleRemoveStory}
           />
         )}
+
+        <button type="button" onClick={handleMore}>
+          More
+        </button>
       </StyledContainer>
     </>
   );
