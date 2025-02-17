@@ -126,7 +126,10 @@ const extractSearchTerm = (url: string) =>
     .substring(url.lastIndexOf('?') + 1, url.lastIndexOf('&'))
     .replace(PARAM_SEARCH, '');
 
-const getLastSearches = (urls: string[]): string[] =>
+const getLastSearches = (
+  urls: string[],
+  currentSearchTerm: string
+): string[] =>
   urls
     .reduce((result, url, index) => {
       const searchTerm = extractSearchTerm(url);
@@ -144,7 +147,8 @@ const getLastSearches = (urls: string[]): string[] =>
       }
     }, [] as string[])
     .slice(-6)
-    .slice(0, -1);
+    .slice(0, -1)
+    .filter((term) => term !== currentSearchTerm);
 
 //  careful: notice the ? in between
 const getUrl = (searchTerm: string, page: number): string =>
