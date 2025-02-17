@@ -293,7 +293,7 @@ const App = () => {
     handleSearch(searchTerm, 0);
   };
 
-  const lastSearches = getLastSearches(urls);
+  const lastSearches = getLastSearches(urls, searchTerm);
 
   const handleMore = () => {
     const lastUrl = urls[urls.length - 1];
