@@ -69,7 +69,10 @@ describe('storiesReducer', () => {
   it('correctly updates application state', () => {
     const action = {
       type: 'STORIES_FETCH_SUCCESS',
-      payload: stories,
+      payload: {
+        list: stories,
+        page: 0,
+      },
     };
     const newState = storiesReducer(initialState, action);
 
@@ -97,6 +100,7 @@ describe('storiesReducer', () => {
       data: [storyTwo],
       isLoading: false,
       isError: false,
+      page: state.page,
     };
 
     expect(newState).toStrictEqual(expectedState);
