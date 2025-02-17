@@ -217,6 +217,11 @@ exports[`App > renders snapshot 1`] = `
       </span>
     </li>
   </ul>
+  <button
+    type="button"
+  >
+    More
+  </button>
 </div>
 `;
 

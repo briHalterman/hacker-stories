@@ -25,6 +25,7 @@ type StoriesState = {
   data: Stories;
   isLoading: boolean;
   isError: boolean;
+  page: number;
 };
 
 type StoriesFetchInitAction = {
@@ -33,7 +34,10 @@ type StoriesFetchInitAction = {
 
 type StoriesFetchSuccessAction = {
   type: 'STORIES_FETCH_SUCCESS';
-  payload: Stories;
+  payload: {
+    list: Stories;
+    page: number;
+  };
 };
 
 type StoriesFetchFailureAction = {
@@ -66,6 +70,7 @@ const storiesReducer = (
         ...state,
         isLoading: true,
         isError: false,
+        page: state.page,
       };
     case STORIES_FETCH_SUCCESS:
       return {
@@ -80,6 +85,7 @@ const storiesReducer = (
         ...state,
         isLoading: false,
         isError: true,
+        page: state.page,
       };
     case REMOVE_STORY:
       return {
@@ -87,6 +93,7 @@ const storiesReducer = (
         data: state.data.filter(
           (story) => action.payload.objectID !== story.objectID
         ),
+        page: state.page,
       };
     default:
       throw new Error();
@@ -140,7 +147,7 @@ const getLastSearches = (urls: string[]): string[] =>
     .slice(0, -1);
 
 //  careful: notice the ? in between
-const getUrl = (searchTerm: string, page): string =>
+const getUrl = (searchTerm: string, page: number): string =>
   searchTerm
     ? `${API_BASE}${API_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`
     : '';
@@ -203,14 +210,9 @@ const App = () => {
     'React'
   );
 
-  const intitialUrls: string[] = getUrl(searchTerm)
-    ? [getUrl(searchTerm)]
+  const intitialUrls: string[] = getUrl(searchTerm, 0)
+    ? [getUrl(searchTerm, 0)]
     : [];
-
-  // // important: still wraps the returned value in []
-  // const [urls, setUrls] = React.useState<string[]>(() =>
-  //   getUrl(searchTerm) ? [getUrl(searchTerm)] : ([] as string[])
-  // );
 
   const [urls, setUrls] = React.useState([getUrl(searchTerm, 0)]);
 
@@ -259,7 +261,7 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearch = (searchTerm: string, page) => {
+  const handleSearch = (searchTerm: string, page: number) => {
     const newUrl = getUrl(searchTerm, page);
     const newUrls = urls
       .filter((url) => url !== newUrl)
@@ -270,8 +272,8 @@ const App = () => {
   const handleSearchSubmit = (
     event: React.FormEvent<HTMLFormElement>
   ) => {
-    handleSearch(searchTerm, 0);
     event.preventDefault(); // put before?
+    handleSearch(searchTerm, 0);
   };
 
   const handleLastSearch = (searchTerm: string) => {
@@ -355,17 +357,3 @@ const LastSearches: React.FC<LastSearchesProps> = ({
 export default App;
 
 export { storiesReducer, SearchForm, InputWithLabel, List };
-
-// input: `react
-// submit urls[], after search is done, check last term
-// how to error handle
-// if network error
-// do you add to history?
-//  []
-
-// input: `redux`
-// submit `urls[]` check last term
-// [react, redux, react]
-
-// form onsubmit
-//
